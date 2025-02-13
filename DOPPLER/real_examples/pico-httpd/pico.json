@@ -1,0 +1,32 @@
+[
+  {
+    "source": "file_name",
+    "symbol": "file_name",
+    "function": "read_file",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "file_name",
+    "symbol": "file_name",
+    "function": "file_exists",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "file_name",
+    "symbol": "file_name",
+    "function": "route",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  }
+]

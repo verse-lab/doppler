@@ -1,0 +1,6 @@
+llvm-link-13 -S server.ll fmacros.ll config.ll solarisfixes.ll rio.ll sds.ll \
+  connection.ll \
+  monotonic.ll dict.ll mt19937-64.ll adlist.ll zmalloc.ll anet.ll intset.ll \
+  version.ll util.ll latency.ll sparkline.ll quicklist.ll rax.ll redismodule.ll \
+  zipmap.ll ziplist.ll sha1.ll endianconv.ll crc64.ll stream.ll listpack.ll \
+  rdb.ll cluster.ll slowlog.ll bio.ll functions.ll script.ll syscheck.ll -o redis-server-sim.ll

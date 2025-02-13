@@ -1,0 +1,50 @@
+Sorry to write in English. My typing in Hangul is very poor.
+
+Once upon a time, there were two big guys named 
+International Standard Org (ISO) and Unicode Consortium
+(A US software and hardware vender consortium). Each of
+them though he is the only one who can make a universal
+code set so he planed to make it. DIS-10646 from ISO,
+Unicode 1.0 from Unicode consortium were the names.
+
+DIS-10646 was a super set of various National standards
+in 32-bit space and Unicode 1.0 merges all Hanja used
+in China, Korea and Japan and save the code space so
+they can fit all possible characters in 16-bit space.
+
+There couldn't be two suns in the sky and they reallize
+that they should work together instead of fighting
+against each others. May 1991 they agree to make one code set.
+
+At this point, every work was done. Draft of International
+standard becomes an IS-10646 by defining 16-bit space char(UCS-2)
+(among 32-bit full-possible work space) identical to Unicode 1.1.
+And Unicode 1.0 was added with more characters defined in old DIS.
+
+So strictly speaking, Unicode 1.1 is just an implementation of
+IS-10646 UCS-2 level 3.
+
+Unfortunately Hangul space was restricted to 6566 Chars
+(less than 19*21*28 ~ 11KB to cover all modern syllables).
+In addition to 6566 "Precomposed Hangul Syllables"
+(WanSungHyeong Hangul in common name in Korea),
+240 Modern and Ancient Hangul Jamos (in 1100-11FF)
+(90+1 Choseong, 1+66 Jungseong, 82 JongSeong)
+were allocated in Alphabet space (0000-1FFF).
+This Jamos will be combined to make a graphical
+representation of un-precomposed hangul syllables.
+
+Two volume books, Unicode 1.0, were the only information
+published but Hangul part was changed so much that
+you can't use the book. Changes from Unicode 1.0 to
+Unicode 1.0.1 and some more informations can be found
+from ftp@unicode.org. Two Mailing list, ISO10646@jhuvm.bitnet
+and unicode@sun.com are alive but no so useful.
+Final document, IS-10646 is in printing process.
+
+If you need more information, please tell me at
+June-Yub Lee <jylee@kitty.cims.nyu.edu> or
+Prof Kim Kyongsok <kskim@HYOWON.PUSAN.AC.KR>.
+
+Good Bye.
+	June-Yub Lee

@@ -1,0 +1,252 @@
+[
+    {
+        "source": "nargc",
+        "symbol": "nargc",
+        "function": "main",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "sudo_mode",
+        "symbol": "sudo_mode",
+        "function": "main",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "exitcode",
+        "symbol": "exitcode",
+        "function": "main",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "nargv",
+        "symbol": "nargv",
+        "function": "main",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "settings",
+        "symbol": "settings",
+        "function": "main",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "env_add",
+        "symbol": "env_add",
+        "function": "main",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "user_info",
+        "symbol": "user_info",
+        "function": "main",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "command_info",
+        "symbol": "command_info",
+        "function": "main",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "argv_out",
+        "symbol": "argv_out",
+        "function": "main",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "user_env_out",
+        "symbol": "user_env_out",
+        "function": "main",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "plugin",
+        "symbol": "plugin",
+        "function": "main",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "next",
+        "symbol": "next",
+        "function": "main",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "command_details",
+        "symbol": "command_details",
+        "function": "main",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "mask",
+        "symbol": "mask",
+        "function": "main",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "ok",
+        "symbol": "ok",
+        "function": "main",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "i",
+        "symbol": "i",
+        "function": "command_info_to_details",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "lval",
+        "symbol": "lval",
+        "function": "command_info_to_details",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "ulval",
+        "symbol": "ulval",
+        "function": "command_info_to_details",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "cp",
+        "symbol": "cp",
+        "function": "command_info_to_details",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "ep",
+        "symbol": "ep",
+        "function": "command_info_to_details",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "cp",
+        "symbol": "cp",
+        "function": "parse_args",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "env_add",
+        "symbol": "env_add",
+        "function": "parse_args",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "settings",
+        "symbol": "settings",
+        "function": "parse_args",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "nenv",
+        "symbol": "nenv",
+        "function": "parse_args",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "env_size",
+        "symbol": "env_size",
+        "function": "parse_args",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    }
+]

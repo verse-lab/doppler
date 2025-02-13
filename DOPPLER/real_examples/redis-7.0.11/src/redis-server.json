@@ -1,0 +1,72 @@
+[
+    {
+        "source": "keys",
+        "symbol": "flags",
+        "function": "getKeysUsingKeySpecs",
+        "location": {
+          "startLine": 0,
+          "startColumn": 0,
+          "endColumn": 0
+        }
+    },
+    {
+        "source": "i",
+        "symbol": "i",
+        "function": "getKeysUsingKeySpecs",
+        "location": {
+          "startLine": 0,
+          "startColumn": 0,
+          "endColumn": 0
+        }
+    },
+    {
+        "source": "j",
+        "symbol": "j",
+        "function": "getKeysUsingKeySpecs",
+        "location": {
+          "startLine": 0,
+          "startColumn": 0,
+          "endColumn": 0
+        }
+    },
+    {
+        "source": "k",
+        "symbol": "k",
+        "function": "getKeysUsingKeySpecs",
+        "location": {
+          "startLine": 0,
+          "startColumn": 0,
+          "endColumn": 0
+        }
+    },
+    {
+        "source": "last",
+        "symbol": "last",
+        "function": "getKeysUsingKeySpecs",
+        "location": {
+          "startLine": 0,
+          "startColumn": 0,
+          "endColumn": 0
+        }
+    },
+    {
+        "source": "first",
+        "symbol": "first",
+        "function": "getKeysUsingKeySpecs",
+        "location": {
+          "startLine": 0,
+          "startColumn": 0,
+          "endColumn": 0
+        }
+    },
+    {
+        "source": "step",
+        "symbol": "step",
+        "function": "getKeysUsingKeySpecs",
+        "location": {
+          "startLine": 0,
+          "startColumn": 0,
+          "endColumn": 0
+        }
+    }
+]

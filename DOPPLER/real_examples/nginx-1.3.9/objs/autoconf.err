@@ -1,0 +1,667 @@
+
+
+----------------------------------------
+checking for C compiler
+
+
+----------------------------------------
+checking for gcc builtin atomic operations
+
+
+----------------------------------------
+checking for C99 variadic macros
+
+
+----------------------------------------
+checking for gcc variadic macros
+
+
+----------------------------------------
+checking for unistd.h
+
+
+----------------------------------------
+checking for inttypes.h
+
+
+----------------------------------------
+checking for limits.h
+
+
+----------------------------------------
+checking for sys/filio.h
+
+objs/autotest.c:3:10: fatal error: 'sys/filio.h' file not found
+#include <sys/filio.h>
+         ^~~~~~~~~~~~~
+1 error generated.
+----------
+
+
+#include <sys/filio.h>
+
+int main() {
+    return 0;
+}
+
+----------
+clang-13 -o objs/autotest objs/autotest.c
+----------
+
+----------------------------------------
+checking for sys/param.h
+
+
+----------------------------------------
+checking for sys/mount.h
+
+
+----------------------------------------
+checking for sys/statvfs.h
+
+
+----------------------------------------
+checking for crypt.h
+
+
+----------------------------------------
+checking for epoll
+
+
+----------------------------------------
+checking for sendfile()
+
+
+----------------------------------------
+checking for sendfile64()
+
+
+----------------------------------------
+checking for sys/prctl.h
+
+
+----------------------------------------
+checking for prctl(PR_SET_DUMPABLE)
+
+
+----------------------------------------
+checking for sched_setaffinity()
+
+
+----------------------------------------
+checking for crypt_r()
+
+
+----------------------------------------
+checking for sys/vfs.h
+
+
+----------------------------------------
+checking for poll()
+
+
+----------------------------------------
+checking for /dev/poll
+
+objs/autotest.c:4:10: fatal error: 'sys/devpoll.h' file not found
+#include <sys/devpoll.h>
+         ^~~~~~~~~~~~~~~
+1 error generated.
+----------
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/devpoll.h>
+
+int main() {
+    int  n, dp; struct dvpoll  dvp;
+                  dp = 0;
+                  dvp.dp_fds = NULL;
+                  dvp.dp_nfds = 0;
+                  dvp.dp_timeout = 0;
+                  n = ioctl(dp, DP_POLL, &dvp);
+                  if (n == -1) return 1;
+    return 0;
+}
+
+----------
+clang-13 -pipe -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -o objs/autotest objs/autotest.c
+----------
+
+----------------------------------------
+checking for kqueue
+
+objs/autotest.c:4:10: fatal error: 'sys/event.h' file not found
+#include <sys/event.h>
+         ^~~~~~~~~~~~~
+1 error generated.
+----------
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/event.h>
+
+int main() {
+    int kq; kq = kqueue();
+    return 0;
+}
+
+----------
+clang-13 -pipe -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -o objs/autotest objs/autotest.c
+----------
+
+----------------------------------------
+checking for crypt()
+
+/usr/bin/ld: /tmp/autotest-575d8b.o: in function `main':
+autotest.c:(.text+0x24): undefined reference to `crypt'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+----------
+
+#include <sys/types.h>
+#include <unistd.h>
+
+
+int main() {
+    crypt("test", "salt");;
+    return 0;
+}
+
+----------
+clang-13 -pipe -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -o objs/autotest objs/autotest.c
+----------
+
+----------------------------------------
+checking for crypt() in libcrypt
+
+
+----------------------------------------
+checking for F_READAHEAD
+
+objs/autotest.c:7:14: error: use of undeclared identifier 'F_READAHEAD'
+    fcntl(0, F_READAHEAD, 1);;
+             ^
+1 error generated.
+----------
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <fcntl.h>
+
+int main() {
+    fcntl(0, F_READAHEAD, 1);;
+    return 0;
+}
+
+----------
+clang-13 -pipe -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -o objs/autotest objs/autotest.c
+----------
+
+----------------------------------------
+checking for posix_fadvise()
+
+
+----------------------------------------
+checking for O_DIRECT
+
+
+----------------------------------------
+checking for F_NOCACHE
+
+objs/autotest.c:7:14: error: use of undeclared identifier 'F_NOCACHE'
+    fcntl(0, F_NOCACHE, 1);;
+             ^
+1 error generated.
+----------
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <fcntl.h>
+
+int main() {
+    fcntl(0, F_NOCACHE, 1);;
+    return 0;
+}
+
+----------
+clang-13 -pipe -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -o objs/autotest objs/autotest.c
+----------
+
+----------------------------------------
+checking for directio()
+
+objs/autotest.c:8:5: warning: implicit declaration of function 'directio' is invalid in C99 [-Wimplicit-function-declaration]
+    directio(0, DIRECTIO_ON);;
+    ^
+objs/autotest.c:8:17: error: use of undeclared identifier 'DIRECTIO_ON'
+    directio(0, DIRECTIO_ON);;
+                ^
+1 warning and 1 error generated.
+----------
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/types.h>
+                  #include <sys/fcntl.h>
+
+int main() {
+    directio(0, DIRECTIO_ON);;
+    return 0;
+}
+
+----------
+clang-13 -pipe -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -o objs/autotest objs/autotest.c
+----------
+
+----------------------------------------
+checking for statfs()
+
+
+----------------------------------------
+checking for statvfs()
+
+
+----------------------------------------
+checking for dlopen()
+
+
+----------------------------------------
+checking for sched_yield()
+
+
+----------------------------------------
+checking for SO_SETFIB
+
+objs/autotest.c:7:31: error: use of undeclared identifier 'SO_SETFIB'
+    setsockopt(0, SOL_SOCKET, SO_SETFIB, NULL, 4);
+                              ^
+1 error generated.
+----------
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/socket.h>
+
+int main() {
+    setsockopt(0, SOL_SOCKET, SO_SETFIB, NULL, 4);
+    return 0;
+}
+
+----------
+clang-13 -pipe -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -o objs/autotest objs/autotest.c
+----------
+
+----------------------------------------
+checking for SO_ACCEPTFILTER
+
+objs/autotest.c:7:31: error: use of undeclared identifier 'SO_ACCEPTFILTER'
+    setsockopt(0, SOL_SOCKET, SO_ACCEPTFILTER, NULL, 0);
+                              ^
+1 error generated.
+----------
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/socket.h>
+
+int main() {
+    setsockopt(0, SOL_SOCKET, SO_ACCEPTFILTER, NULL, 0);
+    return 0;
+}
+
+----------
+clang-13 -pipe -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -o objs/autotest objs/autotest.c
+----------
+
+----------------------------------------
+checking for TCP_DEFER_ACCEPT
+
+
+----------------------------------------
+checking for TCP_KEEPIDLE, TCP_KEEPINTVL, TCP_KEEPCNT
+
+
+----------------------------------------
+checking for TCP_INFO
+
+
+----------------------------------------
+checking for accept4()
+
+
+----------------------------------------
+checking for int size
+
+
+----------------------------------------
+checking for long size
+
+
+----------------------------------------
+checking for long long size
+
+
+----------------------------------------
+checking for void * size
+
+
+----------------------------------------
+checking for uint64_t
+
+
+----------------------------------------
+checking for sig_atomic_t
+
+
+----------------------------------------
+checking for sig_atomic_t size
+
+
+----------------------------------------
+checking for socklen_t
+
+
+----------------------------------------
+checking for in_addr_t
+
+
+----------------------------------------
+checking for in_port_t
+
+
+----------------------------------------
+checking for rlim_t
+
+
+checking for uintptr_t
+
+checking for system byte ordering
+
+----------------------------------------
+checking for size_t size
+
+
+----------------------------------------
+checking for off_t size
+
+
+----------------------------------------
+checking for time_t size
+
+
+----------------------------------------
+checking for setproctitle()
+
+objs/autotest.c:7:5: warning: implicit declaration of function 'setproctitle' is invalid in C99 [-Wimplicit-function-declaration]
+    setproctitle("test");;
+    ^
+1 warning generated.
+/usr/bin/ld: /tmp/autotest-73546b.o: in function `main':
+autotest.c:(.text+0x1c): undefined reference to `setproctitle'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+----------
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+int main() {
+    setproctitle("test");;
+    return 0;
+}
+
+----------
+clang-13 -pipe -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -o objs/autotest objs/autotest.c
+----------
+
+----------------------------------------
+checking for pread()
+
+
+----------------------------------------
+checking for pwrite()
+
+
+----------------------------------------
+checking for sys_nerr
+
+objs/autotest.c:8:18: error: use of undeclared identifier 'sys_nerr'
+    printf("%d", sys_nerr);;
+                 ^
+1 error generated.
+----------
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <errno.h>
+                  #include <stdio.h>
+
+int main() {
+    printf("%d", sys_nerr);;
+    return 0;
+}
+
+----------
+clang-13 -pipe -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -o objs/autotest objs/autotest.c
+----------
+
+----------------------------------------
+checking for _sys_nerr
+
+objs/autotest.c:8:18: error: use of undeclared identifier '_sys_nerr'
+    printf("%d", _sys_nerr);;
+                 ^
+1 error generated.
+----------
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <errno.h>
+                      #include <stdio.h>
+
+int main() {
+    printf("%d", _sys_nerr);;
+    return 0;
+}
+
+----------
+clang-13 -pipe -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -o objs/autotest objs/autotest.c
+----------
+
+----------------------------------------
+checking for maximum errno
+
+41
+----------------------------------------
+checking for localtime_r()
+
+
+----------------------------------------
+checking for posix_memalign()
+
+
+----------------------------------------
+checking for memalign()
+
+
+----------------------------------------
+checking for mmap(MAP_ANON|MAP_SHARED)
+
+
+----------------------------------------
+checking for mmap("/dev/zero", MAP_SHARED)
+
+
+----------------------------------------
+checking for System V shared memory
+
+
+----------------------------------------
+checking for POSIX semaphores
+
+
+----------------------------------------
+checking for struct msghdr.msg_control
+
+
+----------------------------------------
+checking for ioctl(FIONBIO)
+
+
+----------------------------------------
+checking for struct tm.tm_gmtoff
+
+
+----------------------------------------
+checking for struct dirent.d_namlen
+
+objs/autotest.c:8:29: error: no member named 'd_namlen' in 'struct dirent'; did you mean 'd_reclen'?
+    struct dirent  dir; dir.d_namlen = 0;
+                            ^~~~~~~~
+                            d_reclen
+/usr/include/x86_64-linux-gnu/bits/dirent.h:31:24: note: 'd_reclen' declared here
+    unsigned short int d_reclen;
+                       ^
+objs/autotest.c:9:42: error: no member named 'd_namlen' in 'struct dirent'; did you mean 'd_name'?
+                  printf("%d", (int) dir.d_namlen);
+                                         ^~~~~~~~
+                                         d_name
+/usr/include/x86_64-linux-gnu/bits/dirent.h:33:10: note: 'd_name' declared here
+    char d_name[256];           /* We must not include limits.h! */
+         ^
+objs/autotest.c:9:32: warning: cast to smaller integer type 'int' from 'char *' [-Wpointer-to-int-cast]
+                  printf("%d", (int) dir.d_namlen);
+                               ^~~~~~~~~~~~~~~~~~
+1 warning and 2 errors generated.
+----------
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <dirent.h>
+                  #include <stdio.h>
+
+int main() {
+    struct dirent  dir; dir.d_namlen = 0;
+                  printf("%d", (int) dir.d_namlen);
+    return 0;
+}
+
+----------
+clang-13 -pipe -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -o objs/autotest objs/autotest.c
+----------
+
+----------------------------------------
+checking for struct dirent.d_type
+
+
+----------------------------------------
+checking for sysconf(_SC_NPROCESSORS_ONLN)
+
+
+----------------------------------------
+checking for openat(), fstatat()
+
+
+----------------------------------------
+checking for system md library
+
+objs/autotest.c:4:10: fatal error: 'md5.h' file not found
+#include <md5.h>
+         ^~~~~~~
+1 error generated.
+----------
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <md5.h>
+
+int main() {
+    MD5_CTX md5; MD5Init(&md5);
+    return 0;
+}
+
+----------
+clang-13 -pipe -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -o objs/autotest objs/autotest.c -lmd
+----------
+
+----------------------------------------
+checking for system md5 library
+
+objs/autotest.c:4:10: fatal error: 'md5.h' file not found
+#include <md5.h>
+         ^~~~~~~
+1 error generated.
+----------
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <md5.h>
+
+int main() {
+    MD5_CTX md5; MD5Init(&md5);
+    return 0;
+}
+
+----------
+clang-13 -pipe -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -o objs/autotest objs/autotest.c -lmd5
+----------
+
+----------------------------------------
+checking for OpenSSL md5 crypto library
+
+objs/autotest.c:7:18: warning: 'MD5_Init' is deprecated [-Wdeprecated-declarations]
+    MD5_CTX md5; MD5_Init(&md5);
+                 ^
+/usr/include/openssl/md5.h:49:1: note: 'MD5_Init' has been explicitly marked deprecated here
+OSSL_DEPRECATEDIN_3_0 int MD5_Init(MD5_CTX *c);
+^
+/usr/include/openssl/macros.h:182:49: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+#   define OSSL_DEPRECATEDIN_3_0                OSSL_DEPRECATED(3.0)
+                                                ^
+/usr/include/openssl/macros.h:62:52: note: expanded from macro 'OSSL_DEPRECATED'
+#     define OSSL_DEPRECATED(since) __attribute__((deprecated))
+                                                   ^
+1 warning generated.
+
+----------------------------------------
+checking for sha1 in system md library
+
+objs/autotest.c:4:10: fatal error: 'sha.h' file not found
+#include <sha.h>
+         ^~~~~~~
+1 error generated.
+----------
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <sha.h>
+
+int main() {
+    SHA_CTX sha1; SHA1_Init(&sha1);
+    return 0;
+}
+
+----------
+clang-13 -pipe -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -o objs/autotest objs/autotest.c -lmd
+----------
+
+----------------------------------------
+checking for OpenSSL sha1 crypto library
+
+objs/autotest.c:7:19: warning: 'SHA1_Init' is deprecated [-Wdeprecated-declarations]
+    SHA_CTX sha1; SHA1_Init(&sha1);
+                  ^
+/usr/include/openssl/sha.h:49:1: note: 'SHA1_Init' has been explicitly marked deprecated here
+OSSL_DEPRECATEDIN_3_0 int SHA1_Init(SHA_CTX *c);
+^
+/usr/include/openssl/macros.h:182:49: note: expanded from macro 'OSSL_DEPRECATEDIN_3_0'
+#   define OSSL_DEPRECATEDIN_3_0                OSSL_DEPRECATED(3.0)
+                                                ^
+/usr/include/openssl/macros.h:62:52: note: expanded from macro 'OSSL_DEPRECATED'
+#     define OSSL_DEPRECATED(since) __attribute__((deprecated))
+                                                   ^
+1 warning generated.
+
+----------------------------------------
+checking for zlib library
+

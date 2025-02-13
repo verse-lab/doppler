@@ -1,0 +1,14 @@
+#!/bin/sh
+## USED AS A COMMAND LINE EXPANDER TO OVERRIDE PATHS
+## WITHOUT DISTURBING THE KNOWN MAKE BUILD PROCESS DISPLAY
+echo '-DHTTPD_ROOT="/usr/local/apache"'
+echo '-DSUEXEC_BIN="/usr/local/apache/bin/suexec"'
+echo '-DSHARED_CORE_DIR="/usr/local/apache/libexec"'
+echo '-DDEFAULT_PIDLOG="logs/httpd.pid"'
+echo '-DDEFAULT_SCOREBOARD="logs/httpd.scoreboard"'
+echo '-DDEFAULT_LOCKFILE="logs/httpd.lock"'
+echo '-DDEFAULT_ERRORLOG="logs/error_log"'
+echo '-DTYPES_CONFIG_FILE="conf/mime.types"'
+echo '-DSERVER_CONFIG_FILE="conf/httpd.conf"'
+echo '-DACCESS_CONFIG_FILE="conf/access.conf"'
+echo '-DRESOURCE_CONFIG_FILE="conf/srm.conf"'

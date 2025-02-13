@@ -1,0 +1,172 @@
+[
+  {
+    "source": "extension",
+    "symbol": "extension",
+    "function": "get_file_type",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "extension",
+    "symbol": "extension",
+    "function": "serve_static",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "extension",
+    "symbol": "extension",
+    "function": "handle_error",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "last_comp",
+    "symbol": "last_comp",
+    "function": "parse_uri",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "last_dot",
+    "symbol": "last_dot",
+    "function": "parse_uri",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "uri",
+    "symbol": "uri",
+    "function": "parse_uri",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "cause",
+    "symbol": "cause",
+    "function": "handle_error",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "usrbuf",
+    "symbol": "usrbuf",
+    "function": "rio_readlineb",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "rp",
+    "symbol": "rp",
+    "function": "rio_readlineb",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "rp",
+    "symbol": "rp",
+    "function": "rio_readinitb",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "rp",
+    "symbol": "rp",
+    "function": "rio_read",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "bufp",
+    "symbol": "bufp",
+    "function": "rio_readlineb",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "rio",
+    "symbol": "rio",
+    "function": "handle_request",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "uri",
+    "symbol": "uri",
+    "function": "handle_request",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "version",
+    "symbol": "version",
+    "function": "handle_request",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "method",
+    "symbol": "method",
+    "function": "handle_request",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  },
+  {
+    "source": "buf",
+    "symbol": "buf",
+    "function": "handle_request",
+    "location": {
+      "startLine": 0,
+      "startColumn": 0,
+      "endColumn": 0
+    }
+  }
+]

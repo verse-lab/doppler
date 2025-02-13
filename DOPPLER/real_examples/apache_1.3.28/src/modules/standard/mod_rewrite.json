@@ -1,0 +1,12 @@
+[
+    {
+      "source": "cp",
+      "symbol": "cp",
+      "function": "escape_absolute_uri",
+      "location": {
+        "startLine": 0,
+        "startColumn": 0,
+        "endColumn": 0
+      }
+    }
+  ]

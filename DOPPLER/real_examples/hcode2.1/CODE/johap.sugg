@@ -1,0 +1,179 @@
+
+Thu, 12 Nov 92 22:32:57 KST의 mail에서 형규님이 쓰시길
+------------------------------------------------------
+
+ ... summary of the code in the following arguement has been deleted ...
+C:1) 모음 22개 (fill code 포함)
+C:2) 종성 28개 (fill code 포함)
+C:	종성 코드표에서 10010이 no code인데 그럴 이유가 없군요.
+C:	이것을 사용하고 문제가 되는 것중 보다 심각한 \와 |를 위해
+C:	11100를 no code로 하면 한글의 두번째 바이트중
+C:	문제가 되는 것은 [, ], {, }가 되니까 좀 낫지 않을까요?
+C:3) 초성 20개 (fill code 포함)
+C:	3-1) 초성을 00010 - 10101으로 하면 한글의 첫번째 바이트 값이
+C:	     0x88 - 0xD4 가 됩니다. MSB가 mask off될 경우를 생각하면
+C:	     이렇게 C1 영역을 조금이라도 덜 사용하는 것이 좋을 것
+C:	     같습니다. (0x08 - 0x54)
+C:	3-2) KSC5601-1989를 보니 여기서 정의한 조합형 코드의 초성은
+C:	     01001 - 11100으로 한글의 첫번째 바이트 값이
+C:	     0xA4 - 0xF3이군요 (0x24 - 0x73) 이 경우는 C1 영역은
+C:	     완전히 벗어나 있군요. 대신 MSB가 mask off 될 경우
+C:	     [, \, ], ^, _, ` 가 다른 방법에는 나타나지 않는데
+C:	     이 경우는 나타나는군요. 하지만 이 생각도 그리 나쁘지는
+C:	     않군요.
+
+코드를 분석해 주셔서 감사합니다.
+초성을 제외하고는 KSC5601-1989 와 KSC5601-1992 조합형 코드가 같나요?
+
+그리고 지금와서 KSC5601-1992 대신 KSC5601-1989나 새로운 16bit
+조합형 코드를 사용하는 것이 얼마나 유용할지 의문시 되는데?
+sg-inet이나 wg-hangul이 유사한 16bit 조합형 코드에 동의하면
+어떤 절차를 거쳐, KSC로 승인 될 수 있는지 아시는 분이 계신가요?
+
+
+C:규호님> 재경님이 쓰시길:
+C:규호님> ---------------
+C:규호님>   고정크기의 Unicode (level 1?) 을 구현하는 것과 조합형 코드를 
+C:규호님>   일은 구현하는 거의 같은 일이라고 생각됩니다. 제 생각에는 char 
+C:규호님>   type을 16비트로 구현하는 일이라고 생각합니다.
+C:규호님> 
+C:규호님> 새로운 data type을 만드는데 관려한 논의가 X/Open과 OSF, 그리고
+C:규호님> JTC1 SC22/WG20에서 이를 위한 Ad hoc 그룹을 만들었다고 합니다.
+C:규호님> 다음 문장을 참조하세요.
+C:규호님> 
+C:규호님>     The objective of the Ad-hoc group is to determine how 
+C:규호님>     programming languages should handle ISO-10646.
+C:
+C:만약 우리가 fixed-byte 조합형을 택한다면 이런 세계적 조류는
+C:우리에게 도움이 되겠지만 고정길이가 아닌 조합 방식을 택한다면
+C:큰 어려움에 부딪히겠군요. (processing code일 때, 통신용 코드는
+C:고정길이가 아니라도 별 상관이 없겠지만)
+
+재경님이 쓰신 "고정크기의 Unicode"라는 용어를 이해하기 어려운데,
+혹시 "combination method in ISO 10646 level 3"를 언급하신 것인가요?
+"combination method in level 2,3 with hangul jamos"는 fixed size
+code가 아니고, 2 or 3 (codes) * 2 (byte/code) = 4,6 bytes code입니다.
+U, CV, CVL (where U:2byte codes in BMP, C:hangul choseong, V:
+hangul vowel, C:hangul joseong) 모두가 level 2,3에서 사용됩니다.
+자세한 내용은 제가 오늘 sg-inet과 hangul@cair에 보낸,
+ISO10646/Unicode summary를 참고하십시요.
+
+
+C:또 KSC5601-1992가 제 추측으로는 완성형을 그대로 고수하고 부록에
+C:조합형의 통일안을 새로 바꾼것이라면 KSC5842에서 실제로 어떤식으로
+C:한글을 사용하도록 되어있는지가 매우 궁금합니다.
+
+저도 KSC5842에서 어떻게 완성형과 조합형을 동시에 사용하는코드를
+허용하는지 무척 궁금합니다. 혹시 아시는 분 안 계시나요?
+
+
+C:준엽님> C: 완성형의 정의 자체는 (KSC5601,1989) 2바이트로 표현할 수 없는 
+C:준엽님> C: 한글의 경우 6바이트로 표현할 수 있도록 하고 있습니다. 다만 
+C:준엽님> C: 이것을 통신소프트웨어가 처리를 해야 하는데 file code, 
+C:준엽님> C: processing code, communication code 모두가 5601을 쓰는
+C:준엽님> C: 상황에서 어느 응용프로그램도 그러한 것을 고려한 적이
+C:준엽님> C: 없었다는 것이 문제이지요. 기술적인 어려움이라고나 할까?
+C:준엽님> 
+C:준엽님> 많은 분들이 (모든 분들이 아니라면 말이죠), 완성형 표현하지 못하는
+C:준엽님> 한글에 대한 아쉬음과 불만을 가지고 계시면서, KSC5601-1989 
+C:준엽님> 6byte combining scheme이 잘 쓰이지 않는 것은 상당히 의미있는
+C:준엽님> 현상입니다.
+C:준엽님> 
+C:준엽님> 새로운 processing code가 필요하다는데는 전적으로 동의 합니다. 
+C:준엽님> 조합형으로 communication and processing code를 통일하는데는
+C:준엽님> 여러 문제가 있읍니다. 그전에, ISO10646-level2 혹은 KSC5601-1989
+C:준엽님> 6byte 한글을 communication standard로 만든어야 한다는 것이
+C:준엽님> 저의 주장입니다. Internal/processing Code로서의 조합형이 필요하지만,
+C:준엽님> Processing의 편의를 위해 삼보 조합형이나 Han3term 3byte 코드를
+C:준엽님> Communication standard로 인정하는것은 혼란만 가중시킬 위험성이
+C:준엽님> 있는듯 합니다.
+C:
+C:조합형에 대한 우리의 문제는
+C:
+C:	고정길이 방식을 택할 경우:
+C:
+C:		프로그램에서 한글 처리가 용이
+C:		통신에 있어서 국제 규격을 만족하려면 2바이트는 불가능
+C:
+C:	가변길이 방식을 택할 경우:
+C:
+C:		프로그램 작성이 엄청나게 어렵다
+C:		통신에 있어서 국제 규격을 만족한다
+C:
+C:그렇다고 3바이트 조합형이 특별한 장점을 가진것도 아니고...
+C:우리는 왜 이렇게 어려울까... :(
+C:
+C:준엽님> file code라는 것은 CPU to/from storage communication code
+C:준엽님> 아닌가요? :-)  이유는 앞에서 NFS의 예로 잘 설명해 주셨고.
+C:
+C:아! 그렇게 보는 관점이 아주 명확하군요. 감사합니다.
+C:여러분 그러면 화일/통신 코드와 내부처리용(processing) 코드의
+C:두가지로만 나누어서 논의를 하는게 어떨까요?
+C:
+C:우형님> 제가 여태까지의 이야기를 한번 정리해 보겠읍니다.
+C:우형님> KSC5601-1992에 채택된 상용조합형 코드를 Unix나 다른
+C:우형님> Open Systems에서 한글 코드로 채택하기는 불가능하다.
+C:우형님> 유닉스에서 조합형 코드를 사용하려 할 경우, 새로운 
+C:우형님> 코드가 필요하고 이 대안들로는 장형규씨의 세바이트 
+C:우형님> 한글이나 좀더 멀리보면 Unicode가 될 수 있다.
+C:
+C:우형님> 제 입장은 다음과 같습니다.
+C:우형님> Processing Code와 Communication Code를 구분하기가 
+C:우형님> 명확하지 않다. (둘은 앞으로 의미구분을 할 수 없어질 것이다.)
+C:
+C:화일/통신 코드와 내부처리코드로 하면 구분이 가능하지 않을까요?
+C:물론 이렇게 하면 process communication할 때 조차도 
+C:processing code <--> file/communication code 변환이 필요하다는
+C:단점이 있지만... 어떻든 processing code는 고정길이가 좋고
+C:2바이트를 고집하려면 file/communication code는 가변길이가 될거고
+C:이런 변환은 필연적이 될거란 생각도 한번 해봅니다.
+
+둘의 구별이 (사용자에게는) 없어(transparent)질 것이라는 우형님의
+의견에는 동의 합니다. 하지만 그것과 두개의 code가 같다는 말은
+전혀 다르지요. C에서 getc를 실행하는 경우 CPU는 memory/
+IO buffer로 부터 2byte/4byte(depending on your hardward),
+보다 복잡하게는 big/little endian 의 두 경우에 있어, CPU에 도착
+하는 bit map (communication code)는 hardward dependent합니다.
+그러나, C에서 우리가 char data type을 사용할 수 있는 것은
+char이 processing/internal_in_C code로 정의 되어 있기 때문이지요.
+
+{
+	cout << "K" << "a" << "k";
+}
+     ---->  2byte code "Kak" through an I/O port
+{
+	hangul_6byte_type *a;
+	cin >> a;
+}
+
+이 정말로 구현 될 수 있을지는 모르지만 internal code와 commnication
+code가 같아야 한다는데는 우형님과 생각을 달리 합니다.
+
+
+C:우형님> Communication Code로는 국제표준에 적합한 코드가 사용되어야 한다.
+C:우형님> 
+C:우형님> 위 두가지 생각을 다시말하면,
+C:우형님> 
+C:우형님> 유닉스 또는 다른 Open System에서 한글코드로는 Unicode를 사용해야
+C:우형님> 한다.
+C:우형님> 
+C:우형님> 그 이전까지 조합형 코드를 사용하기위해서 전혀 새로운 방법을
+C:우형님> 만들어내는 것은 바람직하지 않으며 장형규씨의 세바이트 한글이
+C:우형님> Unicode Level 2 or more 가 사용될 수 있을 때까지는 가장 타당성
+C:우형님> 있는 방법이다.
+C:우형님> 
+C:우형님> Unicode Level 2 or more 를 구현하려는 노력이 시작되어야 한다.
+C:
+C:흠, 어려워지는군요. 3바이트를 쓰려면 기존의 에디터나 여러가지 한글화를
+C:해놓은 프로그램을 다시 만들어야 하는데 쉬운일이 아니니까.
+C:Unicode도 level 2 이상은 가변길이라서 쉽지가 않은데...
+
+다시 한번 KSC5601-1989 에 규정된 6byte를 이용해 보는 것은 어떤지요?
+사실상 KSC5601-1989와 ISO10646-level 2는 같은 방식으로 사용되어질
+수 있는 장점이 있읍니다.
+
+KSC5601-1992의 3*5bit 조합형을 Unix System에서 구현하기 위해서는
+[01-초성, 10-중성, 11-종성] [ 5bit=32char-1 ] < 94 char in Gx space
+를 이용하여, 2 or 3 Byte로 한글을 표현할 수 있고, KSC5601의
+완성형과 함께 사용하는 것도 가능하여 좋을 것 같읍니다.
+

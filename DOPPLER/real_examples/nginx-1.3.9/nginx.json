@@ -1,0 +1,42 @@
+[
+    {
+      "source": "rc",
+      "symbol": "rc",
+      "function": "ngx_http_parse_chunked",
+      "location": {
+        "startLine": 0,
+        "startColumn": 0,
+        "endColumn": 0
+      }
+    },
+    {
+        "source": "ch",
+        "symbol": "ch",
+        "function": "ngx_http_parse_chunked",
+        "location": {
+          "startLine": 0,
+          "startColumn": 0,
+          "endColumn": 0
+        }
+    },
+    {
+        "source": "c",
+        "symbol": "c",
+        "function": "ngx_http_parse_chunked",
+        "location": {
+          "startLine": 0,
+          "startColumn": 0,
+          "endColumn": 0
+        }
+    },
+    {
+        "source": "pos",
+        "symbol": "pos",
+        "function": "ngx_http_parse_chunked",
+        "location": {
+          "startLine": 0,
+          "startColumn": 0,
+          "endColumn": 0
+        }
+    }
+  ]

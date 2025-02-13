@@ -1,0 +1,27 @@
+The following characters are list of some possible hangul
+syllables and not all of them are in KSC 5601 -1987.
+That means you might see all of them only when
+you have a terminal emulator using han3, Trigem or
+8byte combination patch for KSC 5601-1987.
+Good Luck
+
+{@}, {@!n}, {@!l}, {@!ls}, {@!m}, {@!s}, {@!ch}, {@!h}, 
+{@e}, {@en}, {@el}, {@els}, {@em}, {@es}, {@ech}, {@eh}, 
+{@oe}, {@oen}, {@oel}, {@oels}, {@oem}, {@oes}, {@oech}, {@oeh}, 
+{@yu}, {@yun}, {@yul}, {@yuls}, {@yum}, {@yus}, {@yuch}, {@yuh}, 
+{T}, {T!n}, {T!l}, {T!ls}, {T!m}, {T!s}, {T!ch}, {T!h}, 
+{Te}, {Ten}, {Tel}, {Tels}, {Tem}, {Tes}, {Tech}, {Teh}, 
+{Toe}, {Toen}, {Toel}, {Toels}, {Toem}, {Toes}, {Toech}, {Toeh}, 
+{Tyu}, {Tyun}, {Tyul}, {Tyuls}, {Tyum}, {Tyus}, {Tyuch}, {Tyuh}, 
+{P}, {P!n}, {P!l}, {P!ls}, {P!m}, {P!s}, {P!ch}, {P!h}, 
+{Pe}, {Pen}, {Pel}, {Pels}, {Pem}, {Pes}, {Pech}, {Peh}, 
+{Poe}, {Poen}, {Poel}, {Poels}, {Poem}, {Poes}, {Poech}, {Poeh}, 
+{Pyu}, {Pyun}, {Pyul}, {Pyuls}, {Pyum}, {Pyus}, {Pyuch}, {Pyuh}, 
+{}, {!n}, {!l}, {!ls}, {!m}, {!s}, {!ch}, {!h}, 
+{e}, {en}, {el}, {els}, {em}, {es}, {ech}, {eh}, 
+{oe}, {oen}, {oel}, {oels}, {oem}, {oes}, {oech}, {oeh}, 
+{yu}, {yun}, {yul}, {yuls}, {yum}, {yus}, {yuch}, {yuh}, 
+{Kh}, {Kh!n}, {Kh!l}, {Kh!ls}, {Kh!m}, {Kh!s}, {Kh!ch}, {Kh!h}, 
+{Khe}, {Khen}, {Khel}, {Khels}, {Khem}, {Khes}, {Khech}, {Kheh}, 
+{Khoe}, {Khoen}, {Khoel}, {Khoels}, {Khoem}, {Khoes}, {Khoech}, {Khoeh}, 
+{Khyu}, {Khyun}, {Khyul}, {Khyuls}, {Khyum}, {Khyus}, {Khyuch}, {Khyuh}, 

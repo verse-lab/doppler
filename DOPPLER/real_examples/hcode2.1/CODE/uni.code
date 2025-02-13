@@ -1,0 +1,88 @@
+======================================================================
+KSC 5601 & 5657
+======================================================================
+21-22     simbol
+23        Full width ASC
+24        Hangul Jamo
+25        Greek, numbers
+26        Graphical Forms
+27        Kw, FM so on
+28        Latin oE.. , Circles GiYeok, 1/2 
+29        ...
+2a-2b     Katakana, Hiragana
+2c        cyrilic
+
+3021-487e Hangul (2350)
+4a21-7d7e Hanja  (4888)
+
+KSC-5657 : 5721-75c4 Hanja (2856)
+
+======================================================================
+Hangul related codes in Unicode, IS010646-BMP
+======================================================================
+1. Hangul Jamo Alphabet  (1100-11FF)
+	1100-1159(90 chars) choseong (syllable-initial)
+	115f                choseong  filler
+	1160                jungseong filler
+ 	1161-11a2(66 chars) jungseong(syllable-peak)
+	11a8-11f9(82 chars) jongseong(syllable-final)
+
+2. CJK Auxiliaries
+	302E    HANGUL SINGLE DOT TONE MARK
+	302F    HANGUL DOUBLE DOT TONE MARK
+
+	3131-318E : KSC A4 Page
+	31A1-31FE : Combinig Hangul Jamos (duplication of 3131-318E) Deleted
+	3200-0D(14Chars) : (K) ... (H)
+	320E-1C(14Chars) : (KA) ... (HA)
+	3260-6D          : circled (K) .. (H)
+	320E-1C(14Chars) : circled (KA) ... (HA)
+
+	327F    KOREAN STANDARD SYMBOL
+
+3.  Hangul Precombined Syllable Forms  (3400-4DFF)
+	3400-3D2D (2350) ksc5601
+	3D2E-44B9 (1932) ksc5657(?)
+	44B[ABCD] (4) PPOTH, PPUTH, CCWESS, WEOLS
+	44BE-4DFF (2370) -> MWEOLS
+
+4. CJK Ideograph Compatibility & Other compatibility (F900-FFDF)
+	F9XX-FAXX Some Hanja
+	FFA0-FFBE        : Halfwidth Fill + Final
+	FFC2-FFDE(6blank): Halfwidth Vowel with Sambo Code
+
+======================================================================
+Unicode, ISO10646 - BMP 
+======================================================================
+No characters are currently assigned to codepoints (bit combinations) outside
+of UCS2 (also called the Basic Multilingual Plane or BMP for short).  Out
+of the 65,536 distinct bit combinations in UCS2, 34,168 are assigned to
+characters, 6,467 are reserved, and 24,901 are available for future assignment.
+
+The UCS2 encoding space is divided into sections, whose contents are
+characterized below:
+
+A-Zone (Alphabetic)     (11,892 assigned, 65 reserved, 8,011 available)
+
+  Alphabets
+  Hangul Jamo Alphabet  (1100-11FF)
+  Latin & Greek Precombined Forms
+  Symbols
+  CJK Auxiliaries
+  Hangul Precombined Syllable Forms  (3400-4DFF)
+
+I-Zone (Ideographic)    (20,902 assigned, 0 reserved, 90 available)
+
+  CJK Unified Ideographs  (4E00-9FFF)
+
+O-Zone (Open)           (0 assigned, 0 reserved, 16,384 available)
+
+  Unassigned              (A000-DFFF)
+
+R-Zone (Restricted)     (1,374 assigned, 6402 reserved, 416 available)
+
+  Private Use Area           (E000-F8FF)
+  CJK Ideograph Compatibility  (F900-FA2D?)
+  Presentation Compatibility
+  Other Compatibility & Specials
+

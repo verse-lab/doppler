@@ -1,0 +1,171 @@
+/* ***********************************************************
+ Program : Hangul Code Conversion Program
+ Author :  June-Yub Lee (jylee@math.kaist.ac.kr)
+ Created : Feb, 29, 1992 (Ver. 1.1)
+ Current Version : Sep, 18, 1994 (Ver. 2.1)
+ Syntax : hcode  -[dIhknrst[dihKnrst]]  [ input_file(-) [output_file] ]
+	  try to excute "hcode -help"
+************************************************************ */
+
+Description:
+-----------
+Flexible        : you can put new hangul code without touching the program.
+Efficient       : at least in my view point :-).
+Simple 	        : The following is all of the main program !!
+Hangul Code Conversion program.
+
+main program:
+-------------
+    while ( (c=getc(fpin)) != (unsigned char) EOF ) {
+        PrintChar = (*getwc)(c);
+        if ( PrintChar != 0 ) (*prwc)(PrintChar,fpout,outCode);
+        PrintChar = 0;
+    }
+
+Version:
+--------
+1.0 (Jan, 07, 1992)
+1.1 (Feb, 29, 1992)
+	.  Now support <IS>O-2022 for both input and output code.
+	.  Change output code <I>nput Keyboard as Simulation <K>ey_input.
+1.2^ (Oct, 04, 1992)
+	.  Exit Status is supported.
+	   if there is no hangul then it's 0, otherwise it's inCode.
+	.  Romanization code is changed as the standard agreed by N.S. Korea.
+1.3^ (Nov, 04, 1992)
+	.  Main program has been changed as an automata
+	.  printout2 has been introduced
+	.  SI/SO for romanization code are {/}
+2.0 (Dec, 6, 1992)
+	.  Han3 and KSC5601-1989 Combination Coded supported
+	.  Accept Roman and Key Simulation Code as input code
+	.  Program uses function pointer so looks like C++
+	.  Fixed size (4byte) Internal code has been introduced
+	.  Hangul Codes supported by hcode are clearly defined
+2.1 (Sep, 18, 1994)
+	.  "\n" was added at the end of the signature of
+	   IS-2022 code of SDN mailing code, "ESC$)C\n"
+	.  Some bugs have been fixed to run it on INTEL machine.
+	   (2 byte integer and byte ordering different than Sparc)
+
+Copyright:
+----------
+ This Program is free software under the GNU General Public License.
+ If you are installing this program for your own work or other users,
+ please send me a e-mail so that I can fix any possible bug and
+ update for new Hangul Code including UNICODE.
+
+Supported Hangul Code:
+----------------------
+ This program converts any possible Hangul code to another.
+  hcode  [-A[B]]  [ in_file(-) [out_file] ]
+  Choices of A-Input_Code and B-Output_Code
+        <K>SC : KSC-5601-1987 with 8byte extension
+              : also accepts Han3 Code in input mode
+        <H>an3 : meaningful only for output code.
+        <I>SO-2022-kr : Hangul Mailing Codes
+        S<D>N : B_encoded_Header+\n+Body_in_ISO2022
+        <T>rigem : 15 bit Trigem Combination Code
+        <R>oman : Hangul Romanization Code
+        <N>Byte : Old starndard in Unix system
+        <S>im_Key : Simulation of 2 set Keyboard
+                Version 2.0 By jylee@kitty.cims.nyu.edu
+
+How to insert a new hangul code:
+--------------------------------
+ Moreover you can include ANY HANGUL CODE WITHOUT TOUCHING THE PROGRAM.
+ Just insert your hangul code at the corresponding lines in h2Bcode.h
+ (h3Bcode.h, h4Bcode.h) if it is 2Byte(Multi-Byte Hangul).
+ And then define the name of code in hcode.h modify in(out)_choice.
+ (cf) basically Input Hangul code must be sorted with order of KSC. 
+
+Routines You may want to use for another Hangul Application :
+-------------------------------------------------------------
+hcode.c:
+	main();
+	extern void opt_check();
+conv.c:
+	extern unsigned long int t2k();
+	extern unsigned long int k2t();
+	extern unsigned long int c3h();
+	extern unsigned long int convtr();
+	extern unsigned long int convk8();
+	extern unsigned long int convh3();
+in.c:
+	extern unsigned int gettr();
+	extern unsigned int getks();
+	extern unsigned int getiso();
+	extern unsigned int getnb();
+out.c:
+	extern void pr2m();
+	extern void pr3b();
+mail.c:
+	extern void rmprolog();
+	extern void rmSDNheader();
+	extern void putSDN();
+
+How to get and install the program:
+-----------------------------------
+1 document : CODE.def, README, Makefile
+2 program : hcode.c, conv.c, in.c, out.c, mail.c
+3 head files : hcode.h, h2Bcode.h, h3Bcode.h, h4Bcode.h
+4 Hangul Code Discussions : sample files in ./doc
+
+ftp:anonymous@cair.kaist.ac.kr:/pub/hangul/codeconv/hcode2.0.tar.Z
+ftp:anonymous@kum.kaist.ac.kr:/pub/hangul/hcode2.0.tar.Z
+Or set me a e-mail I will send you it via e-mail with shar format.
+
+Then compile by "cc -o hcode hcode.c conv.c in.c out.c mail.c".
+Or just "make" in Unix machine.
+
+Check if the hcode works well after compile:
+--------------------------------------------
+Try round trip compatability of your document as follows:
+"hcode -AB your_file_in_A | hcode -BC | ... | hcode -CA | diff - your_file"
+If your_file_in_A comforms the hangul code A, you should see nothing.
+And if you have a terminal emulator which can deal all possible
+hangul combination (Not hanterm2.21 but han3term or else)
+then try "hcode -r? doc/try.roman", (for example, ?=h for han3term)
+
+Living with /usr/ucb/Mail and SDN maing code:
+---------------------------------------------
+The following is the trivial example using "hcode" for people
+living with /usr/ucb/Mail and SDN hangul mailing code:
+If your system has "Grobal-aliases" or non-standard mailer then
+please be sure that you understand what you are doing or don't try.
+
+$HOME/.forward
+        "| $HOME/bin/hcode -dk | cat >> /usr/spool/mail/your_login"
+$HOME/.mailrc
+        set editheaders
+        set EDITOR=$HOME/bin/hvi		#any hangul editor
+        set VISUAL=$HOME/bin/hvi		#any hangul editor
+        set sendmail=$HOME/bin/mysendmail
+$HOME/bin/mysendmail
+        hcode -kd | /usr/lib/sendmail $*
+
+Cf: All of above are shell program.  So you should remind that
+    1.  $HOME in a shell-program means your home directory in full path
+        for example /usr/group/your_name.
+    2. hcode should be your excutable path (set path or setenv PATH).
+        or you can tell the full path instead of just hcode.
+    3. Don't delete "(double quotation mark) in .forward file.
+
+
+Then you don't need to think about changing your code from
+KSC to SDN (ISO-2022-KR) when you send it and vice verse
+when you get it.  It's automatic and works well.
+
+
+
+---------------------------------------------
+---------------------------------------------
+
+The excutable code is stand alone application.
+Any comment and bug reported will be appreciated.
+Good luck.
+
+	June-Yub Lee
+	December, 6 ,1992
+	at Courant Institute of New York Univ.
+

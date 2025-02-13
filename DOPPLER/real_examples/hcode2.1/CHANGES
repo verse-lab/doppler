@@ -1,0 +1,333 @@
+///////////////////////////////////
+      Version 2.1 
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+.  "\n" was added at the end of the signature of
+   IS-2022 code of SDN mailing code, "ESC$)C\n"
+.  Some bugs have been fixed to run it on INTEL machine.
+   (2 byte integer and byte ordering different than Sparc)
+
+*** ../hcode2.0/conv.c	Sat Dec  5 11:34:40 1992
+--- ./conv.c	Sun Sep 18 18:04:40 1994
+***************
+*** 33,35 ****
+  
+! 	return 0xff000000;
+  }
+--- 33,35 ----
+  
+! 	return 0xff000000L;
+  }
+***************
+*** 40,42 ****
+  	unsigned long int check, tr;
+! 	unsigned int ch,ju,jo;
+  
+--- 40,42 ----
+  	unsigned long int check, tr;
+! 	unsigned long int ch,ju,jo;
+  
+***************
+*** 67,70 ****
+  	if ( ch<0x100||ju<0x100||jo<0x100 )
+! 		fprintf(stderr,"%x is not valid in KS8 Code\n",wc);
+! 	return (0xd4<<24) + ((ch&0xff)<<16) + ((ju&0xff)<<8) +(jo&0xff);
+  }
+--- 67,70 ----
+  	if ( ch<0x100||ju<0x100||jo<0x100 )
+! 		fprintf(stderr,"%lx is not valid in KS8 Code\n",wc);
+! 	return (0xd4L<<24) + ((ch&0xff)<<16) + ((ju&0xff)<<8) +(jo&0xff);
+  }
+***************
+*** 121,123 ****
+  	}
+! 	return 0x8f000000 + (CON[ch][0]<<16) + (VOW[ju][0]<<8) + CON[jo][0];
+  }
+--- 121,123 ----
+  	}
+! 	return 0x8f000000L + ((long)CON[ch][0]<<16) + (VOW[ju][0]<<8) + CON[jo][0];
+  }
+***************
+*** 147,149 ****
+  		}
+! 	return (0xff000000+TwoConvert[m][0]);
+  }
+--- 147,149 ----
+  		}
+! 	return (0xff000000L+TwoConvert[m][0]);
+  }
+***************
+*** 165,167 ****
+  		else {
+! 			return(0x8ffb0000+TwoConvert[m][1]);
+  		}
+--- 165,167 ----
+  		else {
+! 			return(0x8ffb0000L+TwoConvert[m][1]);
+  		}
+***************
+*** 170,174 ****
+  		if ( TwoConvert[m][0] == wc ) {
+! 			return(0x8ffb0000+TwoConvert[m][1]);
+  		}
+! 	return (0xff000000+TwoConvert[m][1]);
+  }
+--- 170,174 ----
+  		if ( TwoConvert[m][0] == wc ) {
+! 			return(0x8ffb0000L+TwoConvert[m][1]);
+  		}
+! 	return (0xff000000L+TwoConvert[m][1]);
+  }
+*** ../hcode2.0/hcode.c Tue Dec  8 12:34:00 1992
+--- ./hcode.c   Sun Sep 18 20:56:20 1994
+***************
+*** 7,8 ****
+--- 7,9 ----
+   Modified : Ver. 2.0  Dec, 06, 1992
++  Modified : Ver. 2.1  Sep, 18, 1994
+  
+***************
+*** 107,109 ****
+                } else  {
+!                       fprintf(stderr,"Unknown Option: %s %s\n",program,syn);
+                        exit(-1);
+--- 108,110 ----
+                } else  {
+!                       fprintf(stderr,"Usage: %s %s\n",program,syn);
+                        exit(-1);
+*** ../hcode2.0/in.c	Fri Mar 12 17:24:40 1993
+--- ./in.c	Sun Sep 18 17:37:58 1994
+***************
+*** 45,47 ****
+  			first = 0;
+! 			return (0x8ffba4<<8) + c;
+  		}
+--- 45,47 ----
+  			first = 0;
+! 			return (0x8ffba400L) + c;
+  		}
+***************
+*** 63,65 ****
+  	} else {				/* Usual 2byte KSC */
+! 		tmp = (0x8ffb<<16) + (first<<8) + c;
+  		first = 0;
+--- 63,65 ----
+  	} else {				/* Usual 2byte KSC */
+! 		tmp = (0x8ffb0000L) + (first<<8) + c;
+  		first = 0;
+*** ../hcode2.0/mail.c	Sat Dec  5 11:54:53 1992
+--- ./mail.c	Sun Sep 18 20:34:11 1994
+***************
+*** 17,22 ****
+  		if (c==mark[p]) {
+! 			if (p==len-1) 
+  				return;
+! 			else
+  				p++;
+  		} else {
+--- 17,24 ----
+  		if (c==mark[p]) {
+! 			if (p==len-1) {
+! 				if ( c=getc(fpin) != '\n') ungetc(c,fpin);
+  				return;
+! 			} else {
+  				p++;
++ 			}
+  		} else {
+*** ../hcode2.0/out.c	Sat Dec  5 11:58:06 1992
+--- ./out.c	Sun Sep 18 20:29:25 1994
+***************
+*** 51,53 ****
+          if ( prstat == PRENG && (outCode==IS||outCode==SD) ) {
+! 		fputs("\033$)C",fpout);
+  		putc(StartC,fpout);
+--- 51,53 ----
+          if ( prstat == PRENG && (outCode==IS||outCode==SD) ) {
+! 		fputs("\033$)C\n",fpout);
+  		putc(StartC,fpout);
+***************
+*** 61,70 ****
+  	if ( wc>>16 == 0 ||  wc>>16 == 0x8ffb ) {	/* TR, KS */
+! 		fprintf(fpout,"%c%c",(wc>>8)&MSB, wc&MSB);
+  	} else if (wc>>24 == 0x8f) {			/* han3 */
+! 	     fprintf(fpout,"%c%c%c%c",0x8f,(wc>>16)&0xff,(wc>>8)&0xff,wc&0xff);
+  	} else {					/* KS8 */
+! 		fprintf(fpout,"%c%c",0xa4&MSB, 0xd4&MSB);
+! 		fprintf(fpout,"%c%c",0xa4&MSB, (wc>>16)&MSB);
+! 		fprintf(fpout,"%c%c",0xa4&MSB, (wc>>8)&MSB);
+! 		fprintf(fpout,"%c%c",0xa4&MSB, wc&MSB);
+  	}
+--- 61,71 ----
+  	if ( wc>>16 == 0 ||  wc>>16 == 0x8ffb ) {	/* TR, KS */
+! 		fprintf(fpout,"%c%c",(char)(wc>>8)&MSB, (char)wc&MSB);
+  	} else if (wc>>24 == 0x8f) {			/* han3 */
+! 	     fprintf(fpout,"%c%c%c%c",(char)0x8f,(char)(wc>>16)&0xff,
+!                                       (char)(wc>>8)&0xff,(char)wc&0xff);
+  	} else {					/* KS8 */
+! 		fprintf(fpout,"%c%c",(char)0xa4&MSB, (char)0xd4&MSB);
+! 		fprintf(fpout,"%c%c",(char)0xa4&MSB, (char)(wc>>16)&MSB);
+! 		fprintf(fpout,"%c%c",(char)0xa4&MSB, (char)(wc>>8)&MSB);
+! 		fprintf(fpout,"%c%c",(char)0xa4&MSB, (char)wc&MSB);
+  	}
+
+///////////////////////////////////
+      Version 2.0.[1-7] 
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+Patch 01: Document doc/try.roman has been changed.
+*** doc/try.roman0	Wed Dec  6 10:03:01 1992
+--- doc/try.roman1	Tue Dec  8 11:44:19 1992
+***************
+*** 21,27 ****
+  {e}, {en}, {el}, {els}, {em}, {es}, {ech}, {eh},
+  {oe}, {oen}, {oel}, {oels}, {oem}, {oes}, {oech}, {oeh},
+  {yu}, {yun}, {yul}, {yuls}, {yum}, {yus}, {yuch}, {yuh},
+! {KH}, {KH!n}, {KH!l}, {KH!ls}, {KH!m}, {KH!s}, {KH!ch}, {KH!h},
+! {KHe}, {KHen}, {KHel}, {KHels}, {KHem}, {KHes}, {KHech}, {KHeh},
+! {KHoe}, {KHoen}, {KHoel}, {KHoels}, {KHoem}, {KHoes}, {KHoech}, {KHoeh},
+! {KHyu}, {KHyun}, {KHyul}, {KHyuls}, {KHyum}, {KHyus}, {KHyuch}, {KHyuh},
+--- 21,27 ----
+  {e}, {en}, {el}, {els}, {em}, {es}, {ech}, {eh},
+  {oe}, {oen}, {oel}, {oels}, {oem}, {oes}, {oech}, {oeh},
+  {yu}, {yun}, {yul}, {yuls}, {yum}, {yus}, {yuch}, {yuh},
+! {Kh}, {Kh!n}, {Kh!l}, {Kh!ls}, {Kh!m}, {Kh!s}, {Kh!ch}, {Kh!h},
+! {Khe}, {Khen}, {Khel}, {Khels}, {Khem}, {Khes}, {Khech}, {Kheh},
+! {Khoe}, {Khoen}, {Khoel}, {Khoels}, {Khoem}, {Khoes}, {Khoech}, {Khoeh},
+! {Khyu}, {Khyun}, {Khyul}, {Khyuls}, {Khyum}, {Khyus}, {Khyuch}, {Khyuh},
+*** in.c0	Sat Dec  5 12:07:44 1992
+--- in.c1	Sun Dec  6 13:17:34 1992
+***************
+*** 144,149 ****
+--- 144,152 ----
+  			buf[0] = 2; p1 = 2; p2 = p1;
+  			mulstat = MULCV;
+  		}
++ 	} else if ( c==EndCode[inNB] && mulstat==MULSTART && inNB==(RO-NB)) {
++ 			mulstat = MULNONE;
++ 			return 0xb441;			/* {} = I-Eung */
+  	} else if ( c==EndCode[inNB] ) {
+  		if ( mulstat == MULC )  p1 = p2 =  buf[0]+1;
+  		else if ( mulstat == MULCV )  p2 = buf[0]+1;
+
+Patch 02: bug fixed at the following situation
+	hcode -rn doc/try.roman | hcode -nr | diff - doc/try.roman
+	{@}:NULL => hcode -rn => ^N^O:NULL => hcode -nr => {}:I-Eung
+
+*** in.c1	Sun Dec  6 13:17:34 1992
+--- in.c2	Wed Dec  9 09:53:29 1992
+***************
+*** 147,152 ****
+--- 147,155 ----
+  	} else if ( c==EndCode[inNB] && mulstat==MULSTART && inNB==(RO-NB)) {
+  			mulstat = MULNONE;
+  			return 0xb441;			/* {} = I-Eung */
++ 	} else if ( c==EndCode[inNB] && mulstat==MULSTART ) {
++ 			mulstat = MULNONE;
++ 			return 0x8441;			/* Else ^N^O=NULL */
+  	} else if ( c==EndCode[inNB] ) {
+  		if ( mulstat == MULC )  p1 = p2 =  buf[0]+1;
+  		else if ( mulstat == MULCV )  p2 = buf[0]+1;
+
+Patch03: SPACE inside hangul text (between SO/SI) has been allowed.
+Allowing the SPACE, TAB and NEW LINE inside hangul text is under
+discussion now. hcode will follow the final decision. Meantime,
+This is a patch to read the space inside hangul sequence.
+
+*** in.c2	Wed Dec  9 10:07:49 1992
+--- in.c3	Mon Dec 14 10:30:02 1992
+***************
+*** 71,76 ****
+--- 71,77 ----
+  *********************************************************** */
+  #define SO '\016'
+  #define SI '\017'
++ #define SP '\040'
+  unsigned long int getiso(c)
+  unsigned char c;
+  {
+***************
+*** 86,91 ****
+--- 87,94 ----
+  	} else if ( shift == 1 && c == SI ) {
+  		shift = 0;
+  		return 0;
++ 	} else if ( c == SP ) {
++ 		return c;
+  	} else {
+  		return getks(c|0x80);
+  	}
+
+Patch04: TAB inside hangul text (between SO/SI) has been allowed.
+This is a patch to read the TAB inside hangul sequence.
+Patch05: TAB code has been changed from \090 to \011.
+
+*** in.c3	Mon Dec 14 10:30:02 1992
+--- in.c5	Fri Jan 29 13:22:21 1993
+***************
+*** 72,77 ****
+--- 72,78 ----
+  #define SO '\016'
+  #define SI '\017'
+  #define SP '\040'
++ #define TAB '\011'
+  unsigned long int getiso(c)
+  unsigned char c;
+  {
+***************
+*** 87,93 ****
+        } else if ( shift == 1 && c == SI ) {
+                shift = 0;
+                return 0;
+!       } else if ( c == SP ) {
+                return c;
+        } else {
+                return getks(c|0x80);
+--- 88,94 ----
+        } else if ( shift == 1 && c == SI ) {
+                shift = 0;
+                return 0;
+!       } else if ( c == SP || c == TAB ) {
+                return c;
+        } else {
+                return getks(c|0x80);
+
+PATCH06: MSB Set byte without following MSB Set byte in KSC 5601
+make input automata uncleared. If there is any incomplete (Only
+one byte MSC set byte) KSC code, just ignore.
+
+*** in5.c	Wed Feb 10 10:08:49 1993
+--- in6.c	Fri Mar 12 17:24:40 1993
+***************
+*** 29,36 ****
+  	static unsigned long int first=0, all=0, a4=0;
+  	unsigned long int tmp;
+  	
+! 	if ( c<0x80 )				/* ASC */
+  		return c;
+  
+  	if ( first == 0 ) {			/* First MSB Char */
+  		first = c;
+--- 29,38 ----
+  	static unsigned long int first=0, all=0, a4=0;
+  	unsigned long int tmp;
+  	
+! 	if ( c<0x80 ) {				/* ASC */
+! 		first = 0;
+  		return c;
++ 	}
+  
+  	if ( first == 0 ) {			/* First MSB Char */
+  		first = c;
+
+PATCH07: JungSung "eui-yi" code for Simulating_Key code mistake was fixed.
+
+*** h3Bcode.h6	Sun Dec  6 13:55:04 1992
+--- h3Bcode.h	Tue Mar 15 11:14:16 1994
+***************
+*** 24,26 ****
+        "",   "",   "hl",  "y",   "n",   "nj",  "np",  "nk",
+!       "",   "",   "b",   "m",   "mi",  "l",   "",    ""    },
+  
+--- 24,26 ----
+        "",   "",   "hl",  "y",   "n",   "nj",  "np",  "nk",
+!       "",   "",   "b",   "m",   "ml",  "l",   "",    ""    },
+
+

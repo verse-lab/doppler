@@ -1,0 +1,92 @@
+[
+    {
+        "source": "filename",
+        "symbol": "filename",
+        "function": "serveconnection",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "tempstring",
+        "symbol": "tempstring",
+        "function": "serveconnection",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "mimetype",
+        "symbol": "mimetype",
+        "function": "serveconnection",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "tempdata",
+        "symbol": "tempdata",
+        "function": "serveconnection",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "ptr",
+        "symbol": "ptr",
+        "function": "serveconnection",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "ptr2",
+        "symbol": "ptr2",
+        "function": "serveconnection",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "host_ptr1",
+        "symbol": "host_ptr1",
+        "function": "serveconnection",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "host_ptr2",
+        "symbol": "host_ptr2",
+        "function": "serveconnection",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "in",
+        "symbol": "in",
+        "function": "serveconnection",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    }
+]

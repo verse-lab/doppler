@@ -1,0 +1,23 @@
+[
+    {
+      "source": "zTempFile",
+      "symbol": "zTempFile",
+      "function": "output_reset",
+      "location": {
+        "startLine": 0,
+        "startColumn": 0,
+        "endColumn": 0
+      }  
+    },
+    {
+      "source": "doXdgOpen",
+      "symbol": "doXdgOpen",
+      "function": "output_reset",
+      "location": {
+        "startLine": 0,
+        "startColumn": 0,
+        "endColumn": 0
+      }  
+    }
+  ]
+  

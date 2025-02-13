@@ -1,0 +1,276 @@
+Summary : This is the definitions of all hangul codes
+supported by "HCODE ver 2.0". More details and discussions
+on hangul code in addition to this document are included
+in the hcode package version 2.1 from June-Yub Lee.
+(jylee@kitty.cims.nyu.edu, jylee@math1.kaist.ac.kr)
+Thanks.  Sep, 18, 1994
+	June-Yub Lee at Courant Institute
+
+
+Contents
+--------
+I. G0/G1 Switching Codes
+II. ASCII Code points for 7bit
+III. Trigem Combination Code and 3byte modern hangul codes
+IV. KSC5601 2byte Precomposed Chars and 8byte Combination Code
+V. ISO-2022-KR and SDN Mailing Code
+VI. Code points of HAN3 code and 2-Set Keyboard Layout
+
+
+========================
+I. G0/G1 Switching Codes
+========================
+
+---------------------------------------------------
+             |76543210|76543210|765432 10|765 43210
+-------------|--------|--------|------ --|--- -----
+ASCII        |        |        |         |0xx xxxxx
+-------------|--------|--------|------ --|--- -----
+Trigem       |        |        |1xxxxx xx|xxx xxxxx
+-------------|--------|--------|------ --|--- -----
+KSC5601      |        |        |1yyyyy yy|1yy yyyyy
+-------------|--------|--------|------ --|--- -----
+han3         |10001111|1yyyyyyy|1yyyyy yy|1yy yyyyy
+   KSC5601*  |10001111|11111011|1yyyyy yy|1yy yyyyy
+---------------------------------------------------
+---------------------------------------------------
+             |0   8   |16  24  |32  40   |48  56
+-------------|--------|--------|------ --|--- -----
+KSC5601-8byte|A4  D4  |A4  1YY |A4  1YY  |A4  1YY   
+---------------------------------------------------
+
+hcode Internal Code
+---------------------------------------------------
+             |76543210|76543210|765432 10|765 43210
+-------------|--------|--------|------ --|--- -----
+ASCII        |00000000|00000000|000000 00|0xx xxxxx
+-------------|--------|--------|------ --|--- -----
+Trigem       |00000000|00000000|1xxxxx xx|xxx xxxxx
+-------------|--------|--------|------ --|--- -----
+han3         |10001111|1yyyyyyy|1yyyyy yy|1yy yyyyy
+-------------|--------|--------|------ --|--- -----
+KSC5601      |10001111|11111011|1yyyyy yy|1yy yyyyy
+-------------|--------|--------|------ --|--- -----
+KSC5601-8byte|11011000|1yyyyyyy|1yyyyy yy|1yy yyyyy
+-------------|--------|--------|------ --|--- -----
+NOT A CHAR   |11111111|00000000|000000 00|000 00000
+---------------------------------------------------
+   		x=0/1, yyyyyyy=YY=subset of 94chars
+
+
+==============================
+II. ASCII Code points for 7bit
+==============================
+
+-----------------------------------------------------------------
+| 00 nul| 01 soh| 02 stx| 03 etx| 04 eot| 05 enq| 06 ack| 07 bel|
+| 08 bs | 09 ht | 0a nl | 0b vt | 0c np | 0d cr | 0e so | 0f si |
+| 10 dle| 11 dc1| 12 dc2| 13 dc3| 14 dc4| 15 nak| 16 syn| 17 etb|
+| 18 can| 19 em | 1a sub| 1b esc| 1c fs | 1d gs | 1e rs | 1f us |
+| 20 sp | 21  ! | 22  " | 23  # | 24  $ | 25  % | 26  & | 27  ' |
+| 28  ( | 29  ) | 2a  * | 2b  + | 2c  , | 2d  - | 2e  . | 2f  / |
+| 30  0 | 31  1 | 32  2 | 33  3 | 34  4 | 35  5 | 36  6 | 37  7 |
+| 38  8 | 39  9 | 3a  : | 3b  ; | 3c  < | 3d  = | 3e  > | 3f  ? |
+| 40  @ | 41  A | 42  B | 43  C | 44  D | 45  E | 46  F | 47  G |
+| 48  H | 49  I | 4a  J | 4b  K | 4c  L | 4d  M | 4e  N | 4f  O |
+| 50  P | 51  Q | 52  R | 53  S | 54  T | 55  U | 56  V | 57  W |
+| 58  X | 59  Y | 5a  Z | 5b  [ | 5c  \ | 5d  ] | 5e  ^ | 5f  _ |
+| 60  ` | 61  a | 62  b | 63  c | 64  d | 65  e | 66  f | 67  g |
+| 68  h | 69  i | 6a  j | 6b  k | 6c  l | 6d  m | 6e  n | 6f  o |
+| 70  p | 71  q | 72  r | 73  s | 74  t | 75  u | 76  v | 77  w |
+| 78  x | 79  y | 7a  z | 7b  { | 7c  | | 7d  } | 7e  ~ | 7f del|
+-----------------------------------------------------------------
+
+
+==========================================================
+III. Trigem Combination Code and 3byte modern hangul codes
+==========================================================
+First byte with MSB ON and following 3*5bits=15bits refers a syllable.
+The following is the codepoints for each 5bits range with the standard
+Romanization code agreeed by N. S. Korea in 1992.
+See the table h3Bcode.h for conversions between 3byte codes.
+And you should notice that the 3byte codes for modern hangul will
+be converted from/to this trigem code.
+
+  {   "",   FILL, "K",   "Kk",  "N",   "T",   "Tt",  "R",
+      "M",  "P",  "Pp",  "S",   "Ss",  "",    "C",   "Cc",
+      "Ch", "Kh", "Th",  "Ph",  "H",   "",    "",    "",
+      "",   "",   "",    "",    "",    "",    "",    ""    },
+  {   "",   "",   FILL,  "a",   "ae",  "ya",  "yae", "eo",
+      "",   "",   "e",   "yeo", "ye",  "o",   "wa",  "wae",
+      "",   "",   "oe",  "yo",  "u",   "weo", "we",  "wi",
+      "",   "",   "yu",  "eu",  "yi",  "i",   "",    ""    },
+  {   "",   FILL, "k",   "kk",  "ks",  "n",   "nc",  "nh",
+      "t",  "l",  "lk",  "lm",  "lp",  "ls",  "lth", "lph",
+      "lh", "m",  "",    "p",   "ps",  "s",   "ss",  "ng",
+      "c",  "ch", "kh",  "th",  "ph",  "h",   "",    ""    }
+
+There is a serious trouble in transforming between 2-set
+approaching codes(with consonant and vowel) and 3-set approaching
+codes(with consonant initial and final separately and also vowel)
+since you can't distinguish init-K from final-K if the syllable
+is not a normal. (If you have an assumption that all syllables
+have initial and vowel, then it's okay.) To resolve this problem
+you need at least one FILL code, either FILL-init or FILL-Vowel.
+
+Traditionally, there is no clear definitions to declare Final-only
+syllables for N-byte, Key board input, or Romanization since
+all of them is based on 2-set approach. Now I will make my
+"own" definitions to grantee that hcode is "round-trip compatible".
+I am introducing NULL-VOWEL "a" in N-byte code (the first
+vowel(A) start from "b") and "L" in keyboard simulation
+according to han3term keyboard input and "!" for Romanization.
+This NULL-VOWEL will be added when you have a final without vowel.
+
+However, there is other problem in romanizaion code that is
+there is no code points for "Cho-Seong I-Eung" so it's a good
+idea to introduce a NULL-INITIAL(@).
+
+Romanization code is case insenstive. And '-' will separate
+two syllables in a word. However, any letters which is not
+a vowel nor a consonant will be regarded as a syllable separator,
+that means you may use {Han-Keul} or {Han.Keul}.
+
+==============================================================
+IV. KSC5601 2byte Precomposed Chars and 8byte Combination Code
+==============================================================
+2350 Chars = 94 chars/page * 25 pages(B0-D8)
+And also 19 + 21 Modern Jamos in A4 pages.
+See the table h2Bcode.h for the codepoint of each character.
+
+If there is no precomposed character then 8byte sequence
+<FILL> <Initial Consonant> <Vowel> <FILL| Final Consonant>
+could be used.  51 codes (A4A1-A4D3) are used for Modern hangul
+(Initial 19+ Vowel 21+ Final_Only 11(27-16Common Consonant) ).
+However hcode can read all of 94 jamos in A4 pages, for example,
+"LK" is not a initial for the Trigem codepoint is 0x8449.
+
+Strictly speaking, hcode ver 2.1 does not conform KSC5601-1989
+in the sense that it accepts <FILL><FILL|Init><FILL|Vowel><FILL|Final>.
+And also it will generate <FILL><FILL><FILL><Final> in addition to
+<FILL> <Initial Consonant> <Vowel> <FILL| Final Consonant>.
+So round trip compatibilities of modern hangul files by hcode 
+is granteed. (However "hcode -AB given | hcode -BA" might generate
+slightly different sequence if given doesn't conform the standards.)
+
+42 ancient jamos A4D5-A4FE (34consonant+8vowels) will be used
+only for transformation with han3 code.
+
+A4A1 -  ㄱ, ㄲ, ㄱㅅ, ㄴ, ㄴㅈ, ㄴㅎ, ㄷ
+A4A8 - ㄸ,   ㄹ, ㄹㄱ, ㄹㅁ, ㄹㅂ, ㄹㅅ, ㄹㅌ, ㄹㅍ
+A4B0 - ㄹㅎ, ㅁ, ㅂ, ㅃ, ㅂㅅ, ㅅ, ㅆ, ㅇ
+A4B8 - ㅈ, ㅉ, ㅊ, ㅋ, ㅌ, ㅍ, ㅎ, ㅏ
+A4C0 - ㅐ, ㅑ, ㅒ, ㅓ, ㅔ, ㅕ, ㅖ, ㅗ
+A4C8 - ㅗㅏ, ㅗㅐ, ㅗㅣ, ㅛ, ㅜ, ㅜㅓ, ㅜㅔ, ㅜㅣ
+A4D0 - ㅠ, ㅡ, ㅡㅣ, ㅣ, FILL, ㄴㄴ, ㄴㄷ, ㄴㅅ
+A4D8 -  ㄴA, ㄹㄱㅅ, ㄹㄷ, ㄹㅂㅅ, ㄹA, ㄹB, ㅁㅂ, ㅁㅅ
+A4E0 -  ㅁA, C, ㅂㄱ, ㅂㄷ, ㅂㅅㄱ, ㅂㅅㄷ, ㅂㅈ, ㅂㅌ
+A4E8 -  D, E, ㅅㄱ, ㅅㄴ, ㅅㄷ, ㅅㅂ, ㅅㅈ, A
+A4F0 -  ㅇㅇ, ㅇ, ㅇㅅ, ㅇA, F, ㅎㅎ, B, ㅛㅑ
+A4F8 -  ㅛㅒ, ㅛㅣ, ㅠㅕ, ㅠㅖ, ㅠㅣ, ., .ㅣ
+
+        * A /\   B --  C ___  D |_|  E |_| |_|  F _____
+           /__\    /\    | |    |_|    |_| |_|     | |
+                   \/    ---                      ----- 
+                         /-\    /-\      /-\       /-\
+                         \_/    \_/      \_/       \_/
+
+
+====================================
+V. ISO-2022-KR and SDN Mailing Code
+====================================
+Basic code points come from KSC-5601 and we use SO/SI (^N/^O)
+to switch G0 from/to G1 instead of using MSB on.
+
+To specify the designation set, ISO-2022-KR, hcode puts
+"ESC$)C\n" at the front of the first Hangul of the text.
+This definition may be different from original definition
+from Uhhyung Choi's. This is more efficient way to put
+the designation sequence. For input, hcode has no problem
+to read hangul text if the sequence is before hangul text.
+
+SDN Mailing code is extended version of ISO-2022-KR to
+encode MSB ON characters in the header fields according to
+RFC-1342. Transformation method is changing 8bit*3chars to
+6bits(=64)*4 printable chars. See SDN documents from
+uhhyung@daiduk.kaist.ac.kr about the coding.
+
+Input of SDN for hcode is perfectly fine but I made
+hcode not generate SDN code since the header fields
+should be made by mailer. In fact, you can't put
+hangul headers from your text. (Well, it's possible but
+it's a cheating). That's why SDN is allowed only for input.
+
+=====================================================
+VI. Code points of HAN3 code and 2-Set Keyboard Layout
+=====================================================
+
+This code was developed by Hyeongkyu Chang (chk@ssp.etri.re.kr)
+and JaeKyung Song (jksong@mani.kaist.ac.kr) for han3term.
+It is upward compatible with KSC-5601-1987.
+The code is based on fixed size so it's clear.
+I think code point given below and Section I of this document
+is all of what you need to understand this code.
+
+29 Vowels match with those in A4 Page in KSC5601-1989 and
+83 Consonants is super set (has 19 additionals) of KSC chars.
+However, you should notice that the sorting order of HAN3 and
+KSC 5601-1989 is different for ancient jamos.
+
+자음 코드 (83개) +  모음 코드 (29개)
+--------------------------------------------------------------------------
+        0/8     1/9     2/a     3/b     4/c     5/d     6/e     7/f
+--------------------------------------------------------------------------
+0xa0:           채움,   ㄱ,     ㄲ,     ㄱㄹ,   ㄱㅅ,   ㄱㅅㄱ, ㄴ,
+0xa8:   ㄴㄱ,   ㄴㄴ,   ㄴㄷ,   ㄴㅅ,   ㄴ.4,   ㄴㅈ,   ㄴㅎ,   ㄷ,
+0xb0:   ㄷㄱ,   ㄸ,     ㄹ,     ㄹㄱ,   ㄹㄱㅅ, ㄹㄷ,   ㄹㅁ,   ㄹㅁㄱ,
+0xb8:   ㄹㅂ,   ㄹㅂㅅ, ㄹ.6,   ㄹㅅ,   ㄹ.4,   ㄹ.7,   ㄹㅌ,   ㄹㅍ,
+0xc0:   ㄹㅎ,   ㅁ,     ㅁㄱ,   ㅁㄹ,   ㅁㅂ,   ㅁㅅ,   ㅁ.4,   .1,
+0xc8:   ㅂ,     ㅂㄱ,   ㅂㄷ,   ㅂㄹ,   ㅃ,     ㅂㅅ,   ㅂㅅㄱ, ㅂㅅㄷ,
+0xd0:   ㅂㅈ,   ㅂㅌ,   ㅂㅍ,   .6,     .0,     ㅅ,     ㅅㄱ,   ㅅㄴ,
+0xd8:   ㅅㄷ,   ㅅㄹ,   ㅅㅁ,   ㅅㅂ,   ㅅㅂㄱ, ㅆ,     ㅅㅈ,   ㅅㅊ,
+0xe0:   ㅅㅋ,   ㅅㅌ,   ㅅㅍ,   ㅅㅎ,   .4,     ㅇ,     ㅇㅅ,   ㅇㅇ,
+0xe8:   .7,     .8,     .8ㅅ,   .8.4,   ㅈ,     ㅉ,     ㅊ,     ㅋ,
+0xf0:   ㅌ,     ㅍ,     .9,     ㅎ,     ㅎㅎ
+--------------------------------------------------------------------------
+0xa0            채움,  ㅏ,     ㅐ,     ㅑ,     ㅒ,     ㅓ,     ㅔ,
+0xa8:   ㅕ,    ㅖ,     ㅗ,      ㅗㅏ,   ㅗㅐ,   ㅗㅣ,   ㅛ,     ㅛㅑ,
+0xb0:   ㅛㅒ,   ㅛㅣ,  ㅜ,      ㅜㅓ,   ㅜㅔ,   ㅜㅣ,   ㅠ,     ㅠㅕ,
+0xb8:   ㅠㅖ,   ㅠㅣ,  ㅡ,      ㅡㅣ,   ㅣ,     .#,     .#ㅣ
+--------------------------------------------------------------------------
+
+
+----------------------------------------
+  3바이트 한글(가칭 han3) 의 키 배치표
+----------------------------------------
+
++---------+----+----+----+----+----+----+----+----+
+|Q ㅃ|W ㅉ|E ㄸ|R ㄲ|T ㅆ|Y  Y|U  U|I  I|O ㅒ|P ㅖ|
+|  ㅂ|  ㅈ|  ㄷ|  ㄱ|  ㅅ|  ㅛ|  ㅕ|  ㅑ|  ㅐ|  ㅔ|
++-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+
+  |A .1|S .2|D .3|F .4|G .5|H  H|J  J|K .#|L .$|
+  |  ㅁ|  ㄴ|  ㅇ|  ㄹ|  ㅎ|  ㅗ|  ㅓ|  ㅏ|  ㅣ|
+  +-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+----+
+    |Z .6|X .7|C .8|V .9|B .0|N  N|M  M|
+    |  ㅋ|  ㅌ|  ㅊ|  ㅍ|  ㅠ|  ㅜ|  ㅡ|
+    +----+----+----+----+----+----+----+
+
+.1: ____        .2: ㄴㄴ        .3: ㅇㅇ        .4:             .5: ㅎㅎ
+    |  |                                              /\
+    |__|                                             /  \
+     __                                             /____\
+    /  \
+    \__/
+
+.6:             .7:             .8:             .9:             .0:
+    |   |           -----             |             ------         | | | |
+    |___|            ___            __|__            |  |          |_| |_|
+    |   |           /   \          /     \          ------         | | | |
+    |___|           \___/          \_____/           ____          |_| |_|
+     ___                                            /    \           ___
+    /   \                                           \____/          /   \
+    \___/                                                           \___/
+
+.#: . (아래 아)
+.$: NULL 모음 (받침만을 쓰고 싶을때 사용된다.)
+

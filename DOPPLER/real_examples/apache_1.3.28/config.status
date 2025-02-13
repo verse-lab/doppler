@@ -1,0 +1,13 @@
+#!/bin/sh
+##
+##  config.status -- APACI auto-generated configuration restore script
+##
+##  Use this shell script to re-run the APACI configure script for
+##  restoring your configuration. Additional parameters can be supplied.
+##
+
+CC="clang-13" \
+./configure \
+"--with-layout=Apache" \
+"$@"
+

@@ -1,0 +1,12 @@
+void payload() 
+{ 
+
+    __r1 = 0;
+
+LOOP:
+    __r1 += 1;
+    
+    if ( __r1 >= 10 ) 
+        goto LOOP;
+
+}

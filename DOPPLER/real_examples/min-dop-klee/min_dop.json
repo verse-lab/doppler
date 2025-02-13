@@ -1,0 +1,222 @@
+[
+    {
+        "source": "g_clfd",
+        "symbol": "g_clfd",
+        "location": {
+            "startLine": 16,
+            "startColumn": 8,
+            "endColumn": 9
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_is_rootb",
+        "symbol": "g_is_root",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_d",
+        "symbol": "g_d",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_c",
+        "symbol": "g_c",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_p_c",
+        "symbol": "g_p_c",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_d",
+        "symbol": "g_d",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_b",
+        "symbol": "g_b",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_p_b",
+        "symbol": "g_p_b",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_a",
+        "symbol": "g_a",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_srv",
+        "symbol": "g_srv",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "TYPE_NONE",
+        "symbol": "TYPE_NONE",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_p_secret",
+        "symbol": "g_p_secret",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "SECRET",
+        "symbol": "SECRET",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_pp_secret",
+        "symbol": "g_pp_secret",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_p_g_a",
+        "symbol": "g_p_g_a",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_pp_g_a",
+        "symbol": "g_pp_g_a",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_p_g_is_root",
+        "symbol": "g_p_g_is_root",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_pp_g_is_root",
+        "symbol": "g_pp_g_is_root",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_scratch_buf",
+        "symbol": "g_scratch_buf",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_p_scratch_buf",
+        "symbol": "g_p_scratch_buf",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_p_g_is_root",
+        "symbol": "g_p_g_is_root",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    },
+    {
+        "source": "g_pp_scratch_buf",
+        "symbol": "g_pp_scratch_buf",
+        "location": {
+            "startLine": 11,
+            "startColumn": 15,
+            "endColumn": 16
+        },
+        "function": "do_serve"
+    }
+]

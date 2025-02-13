@@ -1,0 +1,141 @@
+
+이 글은 최근 관심의 대상이 되고 있는 Unicode/ISO10646-BMP중에서
+한글에 관한 간략한 해설을 세부분으로 나누어 설명한 것입니다.
+	A.  한글 Code Points
+	B.  Unicode와 ISO10646-BMP의 관계
+	C.  ISO10646의 level 1-3의 정의
+도움이 되시기를.
+이 준엽. at Courant Institute in New York Univ.
+
+
+A.  한글 Code Points in ISO 10646-BMP/Unicode 1.1
+-----------------------------------------------------------------
+. BMP is a 2byte char set in ISO 10646 and chars set in Unicode 1.1
+    has been changed to be identical with ISO 10646-BMP
+. Spacing and nonspacing consonant and vowel
+    has been deleted in the final IS.
+
+1. And we have the following codepoints in BMP:
+    6656 Precomposed chars     : 3400 - 4dff (26pages*256char/page)
+
+2. the codepoints of 240 hangul jamos are as follows accoreding to N868:
+    choseong (syllable-initial): 1100 - 1159 (90 chars)
+    choseong  filler             115f
+    jungseong filler             1160
+    jungseong(syllable-peak)   : 1161 - 11a2 (66 chars)
+    jongseong(syllable-final)  : 11a8 - 11fa (82 chars)
+                                        ^^^^ cf) 11f9-should be
+   	From: kskim@hyowon.pusan.ac.kr(kyongsok kim)
+
+
+B.  Unicode와 ISO10646-BMP의 관계
+------------------------------
+Unicode 1.1 is an implementation of level 2 (new level 3).
+	From: "K. Smith-Yoshimura" <BL.KSS%RLG@Forsythe.Stanford.EDU>
+
+
+C.  ISO10646의 level 1-3의 정의
+----------------------------
+
+장형규님 글 중에서,
+
+C:우형님> 제가 잘 모르는 점은 아래와 같습니다.
+C:우형님>  
+C:우형님> Unicode Level 1 과 Unicode Level 2이 Exclusive한지?
+C:우형님> Unicode Level 1 과 Unicode Level 2의 합이 Unicode Level 3인지?
+C:
+C:준엽님> Unicode는 3개의 level을 가지는데, level1에서는 6656개의
+C:준엽님> Precomposed syllable과 240개의 한글 자모를 쓸 수 있고,
+C:준엽님> level2에서는 6656개의 Precomposed syllable 로 표현 되지
+C:준엽님> 않는 한글을 240의 Jamo로 Combine합니다. level3에서는
+C:준엽님> 한글을 precomposed syllable이나,  240 Jamo combination
+C:준엽님> 어느 것으로나 쓸수 있읍니다.
+C:
+C:> Date:      Wed, 19 Aug 92 15:19:38 PDT
+C:> To: unicode@Sun.COM
+C:> From: "K. Smith-Yoshimura" <BL.KSS%RLG@Forsythe.Stanford.EDU>
+C:> Subject: Hangul support
+C:> 
+C:> Combining jamo are allowed in the new implementation level "1.5" 
+C:> adopted (as requested by the UK), as well as level 2 (unrestricted 
+C:> use of combining characters.) Implementation level 1 is unchanged 
+C:> (precomposed only). The new level 1.5 (which will be the new level
+C:> 2, with current level 2 becoming level 3) creates a separate level
+C:> for scripts where no precomposed characters normally exist, and,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:> therefore, combining marks are mandatory, e.g., Indic scripts, Thai,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:> Arabic, Hebrew, etc.  Korea specifically requested that combining
+C:> jamos be included in this new level 2.  Some of this was discussed
+C:> on the ISO10646@JHUVM listserv.
+C:
+C:준엽님, 제가 그동안 국제 동향에 좀 무관심했었기에 여쭈어봅니다.
+C:위에 있는 Smith Yoshimura의 오래된 편지에는 레벨 2에서는 완성형
+C:글자가 하나도 없다고 되어있는데 지금은 바뀐 모양이죠? 최근의
+C:동향에 대해 hangul@cair와 sg-inet으로 posting을 해주시면 감사하겠습니다.
+
+92년 6월 Seoul Meeting에서 최종 IS 10646이 나오기 직전에,
+비공식적으로 level 1에 있는 모든 precomposed(완성형) 한글을
+삭제하고, level 2에서 combining jamo들로만 Hangul을 쓰자는
+의견이 있었읍니다. 그러나, 이 안은 한번도 공식적인 ISO/unicode
+spec이 된 적이 없읍니다. 위에서 보듯이, final IS10646 level 2에서의
+jamo comination은 완성형  글자가 없는 경우에 한하여 (scripts where
+no precomposed characters normally exist) 사용되도록 되어있읍니다.
+즉 모든 code point는 unique합니다. 'Kak'을 'K','a','k'으로
+사용하는 것은 level 2에서는 허용되지 않읍니다. 하지만,
+'KK','yu','lm'과 같이 완성형이 BMP에 없는 경우는
+3code points * 2byte/code points = 6byte로 표현 합니다.
+
+
+보다 정확한 level 해설은 다음의 discussion에서 볼 수 있읍니다.
+-------------------------------------------------------------
+
+From: SCHEIN@TOROLAB5.VNET.IBM.COM
+Date: Wed, 2 Sep 92 17:22:25 EDT
+
+S:>- Does level 2 only allow combined characters ?
+S:>  For example, can you use "A with Diaeresis (code point C4)" in level 2 ?
+S:Level 2 includes all characters from Level 1. "A DIAERESIS" is in level2.
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ISO 10646 level1,2,3 는 upward compatible scheme입니다.
+
+S:>- If you mix precomposed characters and combined characters,
+S:>  is it always considered level 3 ?
+
+해답은 combined characters가 precomposed set in BMP에
+속해 있느냐, 그렇지 않으냐에 따라 달라집니다.
+combined character 들이 BMP에 없었다면 대답은 NO 입니다.
+
+그러나,    S:Practically YES.
+S:Level 2 is simply defined by a list of combining characters which
+S:are allowed in this level. But the combining characters in this list
+S:have been chosen from the scripts where precomposed are not usually
+S:used, for example, Thai and Indic scripts.  But theoretically, if
+S:tomorrow some precomposed Thai characters will be added, Thai combining
+S:characters will still remain in level 2.  Essentially the same effect
+S:could be achieved by using subsets.
+
+S:>- If someone chooses to use only combined characters in korean
+S:>  implementation, do you say "level 2" or do you still say "level 3"
+S:>  only because there are code points for some korean precomposed
+S:>  characters in ISO-10646?
+S:
+S:Yes, it is still level 3. This level 2 & 3 scheme is far from perfect,
+S:and, personally, I would rather do without.
+S:
+S:>Note that not all Korean syllables can be represented by precomposed
+S:>characters.
+S:
+S:Yes, I know. The same is true for Latin script. This is why we have
+S:level 3.
+S:
+S:-Isai
+
+끝으로 우형님의 질문에 답하면, level 1,2,3 는 upward compatible
+scheme입니다. 그러나, 그 사용 방법이나 목적이 상이하여 level 3
+를 level 2의 upgraded version으로 사용하지는 않을 것이라는 것이
+제 추측입니다. level 3은 precomposed와 combining jamo를 random하게
+섞어 쓰는 scheme 이라기 보다는, level2 scheme이나 combination method
+둘 중의 어느 것이나를 사용자가 정하도록 허용하는 sheme이 될것 같읍니다.
+
+

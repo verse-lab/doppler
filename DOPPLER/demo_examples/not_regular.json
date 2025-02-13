@@ -1,0 +1,11 @@
+[
+  {
+    "source":"a",
+    "symbol":"%a",
+    "location":{
+      "startLine" : 16,
+      "startColumn" : 8,
+      "endColumn" : 9
+      }
+  }
+]

@@ -1,0 +1,57 @@
+[
+  {
+    "source":"a",
+    "symbol":"a",
+    "function":"main",
+    "location":{
+      "startLine" : 16,
+      "startColumn" : 8,
+      "endColumn" : 9
+      }
+  },{
+    "source":"b",
+    "symbol":"b",
+    "function":"main",
+    "location":{
+      "startLine" : 11,
+      "startColumn" : 15,
+      "endColumn" : 16
+      }
+  },{
+    "source":"c",
+    "symbol":"c",
+    "function":"main",
+    "location":{
+      "startLine" : 11,
+      "startColumn" : 15,
+      "endColumn" : 16
+      }
+  },{
+    "source":"d",
+    "symbol":"d",
+    "function":"main",
+    "location":{
+      "startLine" : 11,
+      "startColumn" : 15,
+      "endColumn" : 16
+      }
+  },{
+    "source":"e",
+    "symbol":"e",
+    "function":"main",
+    "location":{
+      "startLine" : 11,
+      "startColumn" : 15,
+      "endColumn" : 16
+      }
+  },{
+    "source":"f",
+    "symbol":"f",
+    "function":"main",
+    "location":{
+      "startLine" : 11,
+      "startColumn" : 15,
+      "endColumn" : 16
+      }
+  }
+]

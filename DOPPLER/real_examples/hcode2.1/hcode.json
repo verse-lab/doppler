@@ -1,0 +1,32 @@
+[
+    {
+        "source": "ibuf",
+        "symbol": "%ibuf",
+        "function": "putSDN",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "obuf",
+        "symbol": "%obuf",
+        "function": "putSDN",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    },
+    {
+        "source": "cp",
+        "symbol": "%cp",
+        "function": "putSDN",
+        "location": {
+            "startLine": 0,
+            "startColumn": 0,
+            "endColumn": 0
+        }
+    }
+]

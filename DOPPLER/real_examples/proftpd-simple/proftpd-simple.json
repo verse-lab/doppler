@@ -1,0 +1,42 @@
+[
+    {
+        "source": "buf",
+        "symbol": "buf",
+        "function": "cmd_loop",
+        "location": {
+            "startLine": 16,
+            "startColumn": 8,
+            "endColumn": 9
+        }
+    },
+    {
+        "source": "marr",
+        "symbol": "marr",
+        "function": "cmd_loop",
+        "location": {
+            "startLine": 16,
+            "startColumn": 8,
+            "endColumn": 9
+        }
+    },
+    {
+        "source": "cp",
+        "symbol": "cp",
+        "function": "cmd_loop",
+        "location": {
+            "startLine": 16,
+            "startColumn": 8,
+            "endColumn": 9
+        }
+    },
+    {
+        "source": "src",
+        "symbol": "src",
+        "function": "cmd_loop",
+        "location": {
+            "startLine": 16,
+            "startColumn": 8,
+            "endColumn": 9
+        }
+    }
+]

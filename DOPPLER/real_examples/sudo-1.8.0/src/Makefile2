@@ -1,0 +1,191 @@
+=======
+#
+# Copyright (c) 2011 Todd C. Miller <Todd.Miller@courtesan.com>
+#
+# Permission to use, copy, modify, and distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+# src/Makefile.  Generated from Makefile.in by configure.
+#
+
+#### Start of system configuration section. ####
+
+srcdir = .
+devdir = $(srcdir)
+top_builddir = ..
+top_srcdir = ..
+incdir = $(top_srcdir)/include
+commdir = $(top_srcdir)/common
+
+# Compiler & tools to use
+CC = clang-13
+LIBTOOL = $(SHELL) $(top_builddir)/libtool --tag=disable-static
+
+# Our install program supports extra flags...
+INSTALL = $(SHELL) $(top_srcdir)/install-sh -c
+
+# Libraries
+# LT_LIBS = $(top_builddir)/common/libcommon.la $(LIBOBJDIR)libreplace.la
+# LIBS =   -lcrypt    $(LT_LIBS)
+
+# C preprocessor flags
+CPPFLAGS = -I$(incdir) -I$(top_builddir) -I$(srcdir) -I$(commdir) -I. -I "../../../thirdparty/klee/include/"
+
+# Usually -O and/or -g
+CFLAGS = -S -emit-llvm -c -g -O0 -Xclang -disable-O0-optnone -fno-discard-value-names
+
+# Flags to pass to the link stage
+LDFLAGS = 
+
+# Where to install things...
+prefix = /usr/local
+exec_prefix = $(prefix)
+bindir = $(exec_prefix)/bin
+sbindir = $(exec_prefix)/sbin
+sysconfdir = /etc
+libexecdir = $(exec_prefix)/libexec
+datarootdir = $(prefix)/share
+localstatedir = ${prefix}/var
+noexecfile = sudo_noexec.so
+noexecdir = ${exec_prefix}/libexec
+
+# User and group ids the installed files should be "owned" by
+install_uid = 0
+install_gid = 0
+
+# OS dependent defines
+# DEFS =  -D_GNU_SOURCE -D_PATH_SUDO_CONF=\"$(sysconfdir)/sudo.conf\"
+
+#### End of system configuration section. ####
+
+SHELL = /bin/bash
+
+PROGS = sudo #libsudo_noexec.la
+
+OBJS = conversation.ll error.ll exec.ll exec_pty.ll get_pty.ll net_ifs.ll \
+       load_plugins.ll parse_args.ll sudo.ll sudo_edit.ll tgetpass.ll \
+       ttysize.ll 
+
+LIBOBJDIR = $(top_builddir)/compat/
+
+VERSION = 1.8.0
+
+SUDODEP = $(srcdir)/sudo.h $(incdir)/sudo_plugin.h $(incdir)/alloc.h \
+	  $(incdir)/error.h $(incdir)/list.h $(incdir)/missing.h \
+	  $(top_builddir)/pathnames.h $(top_builddir)/config.h
+
+all: $(PROGS)
+
+# Makefile: $(srcdir)/Makefile.in
+# 	(cd $(top_builddir) && ./config.status --file src/Makefile)
+
+# .SUFFIXES: .c .h .lo .o
+
+%.ll: %.c
+	$(CC) $(CFLAGS) -I../build -I$(KLEE) -c -o $@ $<
+
+# .c.lo:
+# 	$(LIBTOOL) --mode=compile $(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $<
+
+sudo: $(OBJS) #$(LT_LIBS)
+	llvm-link-13 -S $^ -o sudo.bc
+
+# sudo: $(OBJS) $(LT_LIBS)
+# 	$(LIBTOOL) --mode=link $(CC) -o $@ $(OBJS) $(LDFLAGS) $(LIBS) -static-libtool-libs
+
+# libsudo_noexec.la: sudo_noexec.lo
+# 	$(LIBTOOL) --mode=link $(CC) $(LDFLAGS) -o $@ sudo_noexec.lo -avoid-version -rpath $(noexecdir)
+
+sesh: sesh.o
+	$(CC) -o $@ sesh.o
+
+# Dependencies
+# XXX - SUDODEP is overkill for some of these
+conversation.ll: $(srcdir)/conversation.c $(SUDODEP)
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $(srcdir)/conversation.c
+error.ll: $(srcdir)/error.c $(incdir)/missing.h $(incdir)/error.h $(top_builddir)/config.h
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $(srcdir)/error.c
+exec.ll: $(srcdir)/exec.c $(SUDODEP) $(srcdir)/sudo_exec.h
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $(srcdir)/exec.c
+exec_pty.ll: $(srcdir)/exec_pty.c $(SUDODEP) $(srcdir)/sudo_exec.h
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $(srcdir)/exec_pty.c
+get_pty.ll: $(srcdir)/get_pty.c $(SUDODEP)
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $(srcdir)/get_pty.c
+net_ifs.ll: $(srcdir)/net_ifs.c $(SUDODEP)
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $(srcdir)/net_ifs.c
+load_plugins.ll: $(srcdir)/load_plugins.c $(SUDODEP)
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $(srcdir)/load_plugins.c
+parse_args.ll: $(srcdir)/parse_args.c sudo_usage.h $(SUDODEP)
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $(srcdir)/parse_args.c
+preload.ll: $(srcdir)/preload.c $(incdir)/sudo_plugin.h $(top_builddir)/config.h
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $(srcdir)/preload.c
+selinux.ll: $(srcdir)/selinux.c $(SUDODEP)
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $(srcdir)/selinux.c
+sesh.ll: $(srcdir)/sesh.c $(incdir)/missing.h $(top_builddir)/config.h
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $(srcdir)/sesh.c
+sudo.ll: $(srcdir)/sudo.c $(SUDODEP)
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $(srcdir)/sudo.c
+sudo_edit.ll: $(srcdir)/sudo_edit.c $(SUDODEP)
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $(srcdir)/sudo_edit.c
+# sudo_noexec.lo: $(srcdir)/sudo_noexec.c $(incdir)/missing.h $(top_builddir)/config.h
+# 	$(LIBTOOL) --mode=compile $(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $(srcdir)/sudo_noexec.c
+tgetpass.ll: $(srcdir)/tgetpass.c $(SUDODEP)
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $(srcdir)/tgetpass.c
+ttysize.ll: $(srcdir)/ttysize.c $(incdir)/missing.h $(top_builddir)/config.h
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $(DEFS) $(srcdir)/ttysize.c
+
+install: install-dirs install-binaries install-noexec
+
+install-dirs:
+	$(SHELL) $(top_srcdir)/mkinstalldirs $(DESTDIR)$(bindir) \
+	    $(DESTDIR)$(noexecdir)
+
+install-binaries: install-dirs $(PROGS)
+	$(INSTALL) -b~ -O $(install_uid) -G $(install_gid) -M 04111 sudo $(DESTDIR)$(bindir)/sudo
+	rm -f $(DESTDIR)$(bindir)/sudoedit
+	ln $(DESTDIR)$(bindir)/sudo $(DESTDIR)$(bindir)/sudoedit
+	if [ -f sesh ]; then $(INSTALL) -b~ -O $(install_uid) -G $(install_gid) -M 0111 sesh $(DESTDIR)$(libexecdir)/sesh; fi
+
+install-doc:
+
+install-includes:
+
+# We install sudo_noexec by hand so we can avoid a "lib" prefix
+# and a version number.  Since we use LD_PRELOAD, neither is needed.
+# install-noexec: install-dirs libsudo_noexec.la
+# 	if [ -f .libs/lib$(noexecfile) ]; then $(INSTALL) -b~ -O $(install_uid) -G $(install_gid) -M 0755 .libs/lib$(noexecfile) $(DESTDIR)$(noexecdir)/$(noexecfile); fi
+
+install-plugin:
+
+uninstall:
+	-rm -f	$(DESTDIR)$(bindir)/sudo $(DESTDIR)$(bindir)/sudoedit \
+		$(DESTDIR)$(libexecdir)/sesh \
+		$(DESTDIR)$(noexecdir)/$(noexecfile) \
+
+check:
+
+clean:
+	-$(LIBTOOL) --mode=clean rm -f $(PROGS) *.lo *.o *.la *.a stamp-* core *.core core.* *.ll *.bc
+
+mostlyclean: clean
+
+distclean: clean
+	-rm -rf Makefile .libs sudo_usage.h
+
+clobber: distclean
+
+realclean: distclean
+	rm -f TAGS tags
+
+cleandir: realclean
+
