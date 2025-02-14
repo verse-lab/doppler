@@ -10,13 +10,14 @@ The doppler code is organized as follows:
  |-- tool       # klee
  |-- demo_examples      # demonstration programs
  |-- real_examples      # real-world programs
---BOPC_evaluation  # instructions and payload for BOPC
---DOPPLER_evaluation  # instructions for DOPPLER
+--BOPC_evaluation  # instructions and payload for BOPC evaluation reproduction
+--DOPPLER_evaluation  # instructions for DOPPLER evaluation reproduction
 ```
-The instructions for the comparison with BOPC (Table 4 in the paper) is [here](./BOPC_evaluation/README.md).
+The instructions for the comparison with BOPC (Table 4 in the paper) are [here](./BOPC_evaluation/README.md).
+The instructions for DOPPLER results appeared in Table 4 and Table 5 are [here](./DOPPLER_evaluation/README.md).
 
 ## Building Doppler using Dockerfile
-We highly recommend you to build Doppler via Dockerfile.
+We highly recommend you build Doppler via Dockerfile.
 
 Execute:
 ```bash
@@ -27,7 +28,7 @@ docker run -it --name my-doppler doppler-image /bin/bash
 In the docker container `my-doppler`, you will get an executable file `/home/DOPPLER/build/doppler`.
 
 ## Building Doppler using CMake
-If you want to build Doppler in your local environment, we recommend you to build in Ubuntu 22.04. Please follow below commands:
+If you want to build Doppler in your local environment, we recommend you build in Ubuntu 22.04. Please follow the below commands:
 
 ### 1. Prepare dependencies
 Execute:
@@ -114,7 +115,7 @@ cd DOPPLER/build
 rm -rf ./doppler-run/ # ignore if the folder doesn't exist
 ./doppler --file ../demo_examples/demo1.bc --entry main --vars ../demo_examples/demo1.json --src ../demo_examples/demo1.c --use_src true --compiler demo1.doppler --lstar true --dfa demo1_dfa.txt -o ../demo_examples/demo1_result
 ```
-After the execution, it would stores the following output files in the folder set by `--output_path` or `-o`:
+After the execution, it would store the following output files in the folder set by `--output_path` or `-o`:
 * demo1_dfa.txt    (DFA file)
 * demo1.doppler (Compiler)
 * grammar.txt (Grammar)
@@ -177,4 +178,4 @@ rm -rf ./doppler-run/
 ```
 After the execution, you will get an attack grammar, dfa, and a compiler for generated attack language in the position set by `--output_path`.
 
-Note that above instructions are for single file programs. If you want to test Doppler in a whole project, more detailed instructions can be found [here](./DOPPLER/README.md).
+Note that the above instructions are for single-file programs. If you want to test Doppler in a whole project, more detailed instructions can be found [here](./DOPPLER/README.md).
