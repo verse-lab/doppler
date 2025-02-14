@@ -20,7 +20,7 @@ We highly recommend you to build Doppler via Dockerfile.
 
 Execute:
 ```bash
-cd DOPExploit
+cd DOPPLER
 docker build -t doppler-image .
 docker run -it --name my-doppler doppler-image /bin/bash 
 ```
