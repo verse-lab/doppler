@@ -59,7 +59,7 @@ Set `CMAKE_PREFIX_PATH` to the build directory:
 ```bash
 export CMAKE_PREFIX_PATH="~/z3/build" # if ~/z3 was used
 ```
-### 3. Prepare the KLEE
+### 3. Prepare KLEE
 Execute:
 ```bash
 cd DOPPLER/thirdparty/klee
