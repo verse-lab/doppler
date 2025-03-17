@@ -2,7 +2,7 @@
 We have already provided required input files for all examples. However, you might still need to recompile the LLVM IR file sometimes if you meet some execution issues.
 
 ### demo examples
-In `Doppler/demo_examples/`, commands for each example are recorded in `demoX_run.md` (`X` is from 1-5).
+In `DOPPLER/demo_examples/`, commands for each example are recorded in `demoX_run.md` (`X` is from 1-5).
 ### real_examples
 In `DOPPLER/real_examples/`, commands for each real programs are in each program folder named as `[prog_name]_run.md`.
 

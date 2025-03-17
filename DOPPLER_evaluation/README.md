@@ -4,14 +4,18 @@ Execute:
 ```bash
 cd ./DOPPLER_evaluation
 chmod +x ./demo_run.sh
+sh ./demo_run.sh
 ```
-If you want to save the execution time, you can use `--skip_reg true` to disable the step of converting DFA to regular expression. Because this process takes a long time in some programs and skipping it would not the experiment results. If you want to check the regular expression of some DFAs, you can use the online conversion tool, [FSM2Regex](https://ivanzuzak.info/noam/webapps/fsm2regex/), by directly copying the content of `dfa.txt` to the input field.
+After the execution, the execution logs are recored in `DOPPLER_evaluation/demo_log` and the execution results are recroded in `DOPPLER/demo_examples/demo*-[lster|passive]0result`.
+
+If you want to save the execution time, you can manually add `--skip_reg true` flag into `./doppler` command to disable the step of converting DFA to regular expression. Because this process takes a long time in some programs and skipping it would not affect the experiment results. If you want to check the regular expression of some DFAs, you can use the online conversion tool, [FSM2Regex](https://ivanzuzak.info/noam/webapps/fsm2regex/), by directly copying the content of `dfa.txt` to the input field.
 
 ### Run real experiments
 Execute:
 ```bash
 cd ./DOPPLER_evaluation
-chmod +x ./real_run.sh min-dop passive
+chmod +x ./real_run.sh
+sh ./real_run.sh min-dop passive
 ```
 We recommend you to run real programs one by one because some of them would takes a very long time and some of them would get a timeout.
 

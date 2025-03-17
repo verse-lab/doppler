@@ -105,62 +105,64 @@ cd ./build
 rm -rf ./doppler-run/
 wait
 
-modelabel="false"
+modelabel=""
 
 if [ "$mode" = "lstar" ]; then
-    modelabel="true"
+    modelabel="--lstar true"
 fi
 
 if [ "$prog" = "min-dop" ]; then
-    ./doppler --file ../real_examples/min-dop-klee/min-dop_low.bc --entry main --src ../real_examples/min-dop-klee/src/vuln_srv_klee.c --use_src true --vars ../real_examples/min-dop-klee/min_dop.json --lstar $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+    ./doppler --file ../real_examples/min-dop-klee/min-dop.bc --entry main --src ../real_examples/min-dop-klee/src/vuln_srv_klee.c --use_src true --vars ../real_examples/min-dop-klee/min_dop.json $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
     
 fi
 
 if [ "$prog" = "proftpd" ]; then
-    ./doppler --file ../real_examples/proftpd-simple-klee/proftd-simple --entry main --src ../real_examples/proftpd-simple-klee/src/main.c --use_src true --vars ../real_examples/proftpd-simple-klee/proftpd-simple.json --lstar $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+    ./doppler --file ../real_examples/proftpd-simple/proftd-simple --entry main --src ../real_examples/proftpd-simple/src/main.c --use_src true --vars ../real_examples/proftpd-simple-klee/proftpd-simple.json $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
     
 fi
 
 if [ "$prog" = "ghttpd" ]; then
-    ./doppler --file ../real_examples/ghttpd-1.4/ghttpd.bc --entry main --src ../real_examples/ghttpd-1.4 --vars ../real_examples/ghttpd-1.4/ghttpd.json --use_src true --lstar $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+    ./doppler --file ../real_examples/ghttpd-1.4/ghttpd.bc --entry main --src ../real_examples/ghttpd-1.4 --vars ../real_examples/ghttpd-1.4/ghttpd.json --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
 fi
 
 if [ "$prog" = "sudo" ]; then
-    ./doppler --file ../real_examples/sudo-1.8.0/src/sudo.bc --entry main --src ../real_examples/sudo-1.8.0/src --vars ../real_examples/sudo-1.8.0/src/sudo.json --use_src true --lstar $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+    echo ./doppler --file ../real_examples/sudo-1.8.0/src/sudo.bc --entry main --src ../real_examples/sudo-1.8.0/src --vars ../real_examples/sudo-1.8.0/src/sudo.json --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+    wait
+    ./doppler --file ../real_examples/sudo-1.8.0/src/sudo.bc --entry main --src ../real_examples/sudo-1.8.0/src --vars ../real_examples/sudo-1.8.0/src/sudo.json --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
 fi
 
 if [ "$prog" = "nullhttpd" ]; then
-    ./doppler --file ../real_examples/nullhttpd-0.5.0/src/httpd.ll --entry main --src ../real_examples/nullhttpd-0.5.0/src --vars ../real_examples/nullhttpd-0.5.0/src/httpd.json --use_src true --lstar $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+    ./doppler --file ../real_examples/nullhttpd-0.5.0/src/httpd.ll --entry main --src ../real_examples/nullhttpd-0.5.0/src --vars ../real_examples/nullhttpd-0.5.0/src/httpd.json --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
 fi
 
 if [ "$prog" = "httpd" ]; then
-   ./doppler --file ../real_examples/apache_1.3.28/src/modules/standard/mod_rewrite.ll --entry hook_uri2file --src ../real_examples/apache_1.3.28/src/modules/standard/ --vars ../real_examples/apache_1.3.28/src/modules/standard/mod_rewrite.json --use_src true --lstar $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+   ./doppler --file ../real_examples/apache_1.3.28/src/modules/standard/mod_rewrite.ll --entry hook_uri2file --src ../real_examples/apache_1.3.28/src/modules/standard/ --vars ../real_examples/apache_1.3.28/src/modules/standard/mod_rewrite.json --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
 
 fi
 
 if [ "$prog" = "nginx" ]; then
-    ./doppler --file ../real_examples/nginx-1.3.9-original/objs/nginx.ll --entry ngx_http_discard_request_body_filter --vars ../real_examples/nginx-1.3.9-original/nginx.json --src ../real_examples/nginx-1.3.9-original/src/ --use_src true --lstar $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+    ./doppler --file ../real_examples/nginx-1.3.9-original/objs/nginx.ll --entry ngx_http_discard_request_body_filter --vars ../real_examples/nginx-1.3.9-original/nginx.json --src ../real_examples/nginx-1.3.9-original/src/ --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
 fi
 
 if [ "$prog" = "sqlite" ]; then
-    ./doppler --file ../real_examples/sqlite-3.40.1/sqlite3-simp-shell.ll --entry output_reset --src ../real_examples/sqlite-3.40.1/ --vars ../real_examples/sqlite-3.40.1/sqlite3.json --use_src true --lstar $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+    ./doppler --file ../real_examples/sqlite-3.40.1/sqlite3-simp-shell.ll --entry output_reset --src ../real_examples/sqlite-3.40.1/ --vars ../real_examples/sqlite-3.40.1/sqlite3.json --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
 fi
 
 if [ "$prog" = "redis" ]; then
-    ./doppler --file ../real_examples/redis-7.0.11/src/redis-server.ll --entry getKeysUsingKeySpecs --src ../real_examples/redis-7.0.11/src/ --vars ../real_examples/redis-7.0.11/src/redis-server.json --use_src true --lstar $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+    ./doppler --file ../real_examples/redis-7.0.11/src/redis-server.ll --entry getKeysUsingKeySpecs --src ../real_examples/redis-7.0.11/src/ --vars ../real_examples/redis-7.0.11/src/redis-server.json --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
 fi
 
 if [ "$prog" = "cherry" ]; then
-    ./doppler --file ../real_examples/cherry/src/cherry.ll --entry main --src ../real_examples/cherry/src --vars ../real_examples/cherry/cherry.json --use_src true --lstar $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+    ./doppler --file ../real_examples/cherry/src/cherry.ll --entry main --src ../real_examples/cherry/src --vars ../real_examples/cherry/cherry.json --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
 
 fi
 
 if [ "$prog" = "pico" ]; then
-    ./doppler --file ../real_examples/pico-httpd/main.ll --entry main --src ../real_examples/pico-httpd/ --vars ../real_examples/pico-httpd/pico.json --use_src true --lstar $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+    ./doppler --file ../real_examples/pico-httpd/main.ll --entry main --src ../real_examples/pico-httpd/ --vars ../real_examples/pico-httpd/pico.json --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
 fi
 
 if [ "$prog" = "hcode" ]; then
-    ./doppler --file ../real_examples/hcode2.1/hcode.bc --entry main --src ../real_examples/hcode2.1/ --vars ../real_examples/hcode2.1/hcode.json --use_src true --lstar $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+    ./doppler --file ../real_examples/hcode2.1/hcode.bc --entry main --src ../real_examples/hcode2.1/ --vars ../real_examples/hcode2.1/hcode.json --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
 fi
 
 exit 1

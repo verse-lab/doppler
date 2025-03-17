@@ -1,6 +1,9 @@
-FROM ubuntu:22.04 as base
+FROM ubuntu:22.04 AS base
 
 USER root
+
+# uncomment this line if you are using ARM machine and getting 404 error while running apt-get
+# RUN rm -f /etc/apt/sources.list.d/archive_uri-*
 
 RUN apt-get update && \
     apt-get -y install git build-essential cmake wget
@@ -8,7 +11,10 @@ RUN apt-get update && \
 RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|apt-key add - && \
     apt-get -y install clang-13 llvm-13 llvm-13-dev llvm-13-tools
 
-RUN apt-get -y install python3
+RUN apt-get -y install python3 python3-pip
+
+RUN pip install --upgrade pip && pip install lit
+RUN apt-get -y install sqlite3 libsqlite3-dev
 
 WORKDIR /home/
 
@@ -22,12 +28,6 @@ RUN git clone https://github.com/Z3Prover/z3.git /home/z3 && \
 RUN export CMAKE_PREFIX_PATH="/home/z3/build"
 
 ADD ./DOPPLER /home/DOPPLER
-ADD ./DOPPLER_evaluation /home/DOPPLER_evaluation
-ADD ./README.md /home/README.md
-
-RUN apt-get -y install python3-pip && \
-    pip install lit
-RUN apt-get -y install sqlite3 libsqlite3-dev
 
 RUN cd /home/DOPPLER/thirdparty/klee && \
     mkdir build && \
@@ -38,6 +38,7 @@ RUN cd /home/DOPPLER/thirdparty/klee && \
 RUN mkdir /home/DOPPLER/build && \
     cd /home/DOPPLER/build && CMAKE_PREFIX_PATH="/home/z3/build" cmake .. && make
 
+ADD ./DOPPLER_evaluation /home/DOPPLER_evaluation
 
 FROM base AS final
 
