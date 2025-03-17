@@ -16,10 +16,12 @@ We highly recommend you to build BOPC via Dockerfile because BOPC is in Python 2
 
 Execute:
 ```bash
-cd BOPC_payload
+cd BOPC_evaluation
 docker build -t bopc-image .
 docker run -it --name my-bopc bopc-image /bin/bash
 ```
+We recommand you use VS Code to access the container since it provides a good UI for file management.
+
 ### From source code
 Please refer to this [link](https://github.com/sei-eschwartz/BOPC) for BOPC setup.
 

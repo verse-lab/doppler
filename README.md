@@ -21,11 +21,10 @@ We highly recommend you build Doppler via Dockerfile.
 
 Execute:
 ```bash
-cd DOPPLER
 docker build -t doppler-image .
 docker run -it --name my-doppler doppler-image /bin/bash 
 ```
-In the docker container `my-doppler`, you will get an executable file `/home/DOPPLER/build/doppler`.
+In the docker container `my-doppler`, you will get an executable file `/home/DOPPLER/build/doppler`. We recommand you use VS Code to access the container since it provides a good UI for file management.
 
 ## Building Doppler using CMake
 If you want to build Doppler in your local environment, we recommend you build in Ubuntu 22.04. Please follow the below commands:

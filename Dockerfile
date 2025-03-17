@@ -22,6 +22,9 @@ RUN git clone https://github.com/Z3Prover/z3.git /home/z3 && \
 RUN export CMAKE_PREFIX_PATH="/home/z3/build"
 
 ADD ./DOPPLER /home/DOPPLER
+ADD ./DOPPLER_evaluation /home/DOPPLER_evaluation
+ADD ./README.md /home/README.md
+
 RUN apt-get -y install python3-pip && \
     pip install lit
 RUN apt-get -y install sqlite3 libsqlite3-dev
