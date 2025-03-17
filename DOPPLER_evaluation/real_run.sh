@@ -136,7 +136,7 @@ if [ "$prog" = "nullhttpd" ]; then
 fi
 
 if [ "$prog" = "httpd" ]; then
-   ./doppler --file ../real_examples/apache_1.3.28/src/modules/standard/mod_rewrite.ll --entry hook_uri2file --src ../real_examples/apache_1.3.28/src/modules/standard/ --vars ../real_examples/apache_1.3.28/src/modules/standard/mod_rewrite.json --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+   ./doppler --file ../real_examples/apache_1.3.28/src/modules/standard/mod_rewrite.ll --entry hook_uri2file --src ../real_examples/apache_1.3.28/src/modules/standard/ --vars ../real_examples/apache_1.3.28/src/modules/standard/mod_rewrite.json --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true --timeout 15 > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
 
 fi
 
