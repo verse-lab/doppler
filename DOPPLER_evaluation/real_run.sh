@@ -24,11 +24,11 @@ cd ../DOPPLER/real_examples
 #   cd ../
 # fi
 
-# if [ "$prog" = "proftpd" ]; then
-    # cd proftpd-simple
-    # make
-    # cd ../
-# fi
+if [ "$prog" = "proftpd" ]; then
+    cd proftpd-simple
+    make
+    cd ../
+fi
 
 # if [ "$prog" = "ghttpd" ]; then
 #     cd ghttpd-1.4
@@ -57,8 +57,11 @@ if [ "$prog" = "httpd" ]; then
 fi
 
 if [ "$prog" = "nginx" ]; then
+    cp /usr/include/linux/sysctl.h /usr/include/aarch64-linux-gnu/sys/sysctl.h || cp /usr/include/linux/sysctl.h /usr/include/x86_64-linux-gnu/sys/sysctl.h
     cd nginx-1.3.9
-    make
+    ./configure --without-http_rewrite_module
+    cp Makefile-recover ./objs/Makefile
+    make CFLAGS='-I/root/DOPExploit/MyDOP/thirdparty/klee/include -S -emit-llvm -c -g -O0 -Xclang -disable-O0-optnone -fno-discard-value-names'
     cd ../
 fi
 
@@ -69,12 +72,15 @@ if [ "$prog" = "sqlite" ]; then
     cd ../
 fi
 
-if [ "$prog" = "redis" ]; then
-    cd redis-7.0.11
-    chmod +x src/mkreleasehdr.sh
-    CC=clang-13 make MALLOC=libc
-    cd ..
-fi
+# if [ "$prog" = "redis" ]; then
+#     cd redis-7.0.11
+#     chmod +x src/mkreleasehdr.sh
+#     cd src
+#     make distclean
+#     CC=clang-13 make MALLOC=libc
+#     # CC=clang-13 make MALLOC=libc 
+#     cd ../../
+# fi
 
 if [ "$prog" = "cherry" ]; then
     cd cherry/src
@@ -117,7 +123,7 @@ if [ "$prog" = "min-dop" ]; then
 fi
 
 if [ "$prog" = "proftpd" ]; then
-    ./doppler --file ../real_examples/proftpd-simple/proftd-simple --entry main --src ../real_examples/proftpd-simple/src/main.c --use_src true --vars ../real_examples/proftpd-simple-klee/proftpd-simple.json $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+    ./doppler --file ../real_examples/proftpd-simple/proftd-simple --entry main --src ../real_examples/proftpd-simple --vars ../real_examples/proftpd-simple/proftpd-simple.json $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true --timeout 100 > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
     
 fi
 
@@ -141,7 +147,7 @@ if [ "$prog" = "httpd" ]; then
 fi
 
 if [ "$prog" = "nginx" ]; then
-    ./doppler --file ../real_examples/nginx-1.3.9-original/objs/nginx.ll --entry ngx_http_discard_request_body_filter --vars ../real_examples/nginx-1.3.9-original/nginx.json --src ../real_examples/nginx-1.3.9-original/src/ --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+    ./doppler --file ../real_examples/nginx-1.3.9/objs/nginx.ll --entry ngx_http_discard_request_body_filter --vars ../real_examples/nginx-1.3.9/nginx.json --src ../real_examples/nginx-1.3.9/src/ --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
 fi
 
 if [ "$prog" = "sqlite" ]; then
@@ -149,7 +155,7 @@ if [ "$prog" = "sqlite" ]; then
 fi
 
 if [ "$prog" = "redis" ]; then
-    ./doppler --file ../real_examples/redis-7.0.11/src/redis-server.ll --entry getKeysUsingKeySpecs --src ../real_examples/redis-7.0.11/src/ --vars ../real_examples/redis-7.0.11/src/redis-server.json --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+    ./doppler --file ../real_examples/redis-7.0.11/src/redis-server.ll --entry getKeysUsingKeySpecs --src ../real_examples/redis-7.0.11/src/server.c --vars ../real_examples/redis-7.0.11/src/redis-server.json --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true --timeout 100 > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
 fi
 
 if [ "$prog" = "cherry" ]; then
@@ -162,7 +168,7 @@ if [ "$prog" = "pico" ]; then
 fi
 
 if [ "$prog" = "hcode" ]; then
-    ./doppler --file ../real_examples/hcode2.1/hcode.bc --entry main --src ../real_examples/hcode2.1/ --vars ../real_examples/hcode2.1/hcode.json --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
+    ./doppler --file ../real_examples/hcode2.1/hcode.bc --entry main --src ../real_examples/hcode2.1/ --vars ../real_examples/hcode2.1/hcode.json --use_src true $modelabel --compiler $prog.doppler --output_path  ../real_examples/$prog-$mode-result --skip_reg true --timeout 100 > ../../DOPPLER_evaluation/real-log/$prog-$mode-log.txt
 fi
 
 exit 1
