@@ -13,6 +13,7 @@ codeql-custom-queries-cpp
 *.ll
 evaluation-demo/
 evaluation-large/
+!DOPPLER/real_examples/redis-6.0.9/src/*.ll
 
 # Linker output
 *.ilk
