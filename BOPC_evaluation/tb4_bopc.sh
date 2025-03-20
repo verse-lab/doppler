@@ -5,12 +5,9 @@ dir_demo="./demo_examples"
 dir_real="./real_examples"
 payloads=$(ls ./payloads)
 
-file_list1 = $(find $(dir_demo) -type f ! -name "*.abs" ! -name "*.gdb")
-file_list2 = $(find $(dir_real) -type f ! -name "*.abs" ! -name "*.gdb" ! -name "nginx" ! -name "sqlite")
-binaries = $file_list1 $file_list2
+binaries=$(find "$dir_demo" "$dir_real" -type f ! -name "*.abs" ! -name "*.gdb" ! -name "nginx" ! -name "sqlite")
 
-
-if [ "$1" == "quick"]; then
+if [ "$1" == "quick" ]; then
     output="tb4_bopc_quick_results.csv"
 
 elif [ "$1" == "standard" ]; then

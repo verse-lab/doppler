@@ -61,7 +61,7 @@ if [ "$prog" = "nginx" ]; then
     cd nginx-1.3.9
     ./configure --without-http_rewrite_module
     cp Makefile-recover ./objs/Makefile
-    make CFLAGS='-I/root/DOPExploit/MyDOP/thirdparty/klee/include -S -emit-llvm -c -g -O0 -Xclang -disable-O0-optnone -fno-discard-value-names'
+    make CFLAGS='-I/home/DOPPLER/thirdparty/klee/include -S -emit-llvm -c -g -O0 -Xclang -disable-O0-optnone -fno-discard-value-names'
     cd ../
 fi
 
@@ -94,11 +94,11 @@ if [ "$prog" = "pico" ]; then
     cd ../
 fi
 
-# if [ "$prog" = "hcode" ]; then
-#     cd hcode
-#     make
-#     cd ..
-# fi
+if [ "$prog" = "hcode" ]; then
+    cd hcode2.1
+    make
+    cd ..
+fi
 
 wait
 
