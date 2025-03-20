@@ -48,7 +48,7 @@ chmod +x ./run.sh
 ```
 By default, it would produce the file `results.csv` recording the time for each program in each attack goal. If BOPC succeeds in any of those tasks, it would produce a `gdb` file in directory of the binaries.
 
-In real examples, it would take a long time to get all programs finished. As discussed in the paper, we got timeouts in three tasks of `sqlite` and `nginx`. Please exclude them if you want to execute `./run.sh real`. 
+In real examples, it would take a long time to get all programs finished. As discussed in the paper, we got timeouts in three tasks of `sqlite` and `nginx`. Please exclude them by removing them out of the `real_example` directory if you want to execute `./run.sh real`. 
 
 ### Reproduce results for BOPC in Table 4
 Execute:
@@ -57,6 +57,7 @@ chmod +x ./tb4_bopc.sh
 ./tb4_bopc.sh quick # it produces results for programs that requires less than 60 seconds
 ./tb4_bopc.sh standard # it produces results for programs that requires less than 2 hours
 ./tb4_bopc.sh timeout # it execute programs that BOPC took more than 2 hours
+
 ```
 The execution of `standard` mode may take a few hours. Results will be stored in the following files:
 
@@ -66,4 +67,4 @@ The execution of `standard` mode may take a few hours. Results will be stored in
 
 We record the `gdb` files in `./real_examples` that BOPC succeeded in generating attacks. They are `print`in `cherry` and `memrd`in `nginx`. 
 
-Note: the execution time presented in Table 4 might vary from machine to machine.
+Note: the execution time presented in Table 4 might vary from machine to machine. We moved httpd to timeout since we found it is slow in recent tests, the actual runtime might be shorter than 2 hours which depends on the machine.

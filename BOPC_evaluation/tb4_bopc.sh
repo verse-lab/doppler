@@ -5,7 +5,9 @@ dir_demo="./demo_examples"
 dir_real="./real_examples"
 payloads=$(ls ./payloads)
 
-binaries=$(find "$dir_demo" "$dir_real" -type f ! -name "*.abs" ! -name "*.gdb" ! -name "nginx" ! -name "sqlite")
+binaries=$(find "$dir_demo" "$dir_real" -type f ! -name "*.abs" ! -name "*.gdb" ! -name "nginx1" ! -name "sqlite3" ! -name "httpd")
+
+echo $binaries
 
 if [ "$1" == "quick" ]; then
     output="tb4_bopc_quick_results.csv"
@@ -59,62 +61,102 @@ if [ "$1" == "standard" ]; then
     out=$({ time python ./BOPC/source/BOPC.py -dd --binary ./real_examples/nginx --source ./payloads/memrd --abstraction save --entry -1 --format gdb 1>/dev/null; } 2>&1)
     echo $out
     user=$(echo $out | grep -o "user [0-9]*m[0-9.]*s" | grep -o "[0-9]*m[0-9.]*s")
-    echo "$binary, $payload, $user" >> $output
+    echo "nginx, memrd, $user" >> $output
 
     echo "time python ./BOPC/source/BOPC.py -dd --binary ./real_examples/nginx --source ./payloads/print --abstraction save --entry -1 --format gdb"
     out=$({ time python ./BOPC/source/BOPC.py -dd --binary ./real_examples/nginx --source ./payloads/print --abstraction save --entry -1 --format gdb 1>/dev/null; } 2>&1)
     echo $out
     user=$(echo $out | grep -o "user [0-9]*m[0-9.]*s" | grep -o "[0-9]*m[0-9.]*s")
-    echo "$binary, $payload, $user" >> $output
+    echo "nginx, print, $user" >> $output
 
     echo "time python ./BOPC/source/BOPC.py -dd --binary ./real_examples/nginx --source ./payloads/nloop --abstraction save --entry -1 --format gdb"
     out=$({ time python ./BOPC/source/BOPC.py -dd --binary ./real_examples/nginx --source ./payloads/nloop --abstraction save --entry -1 --format gdb 1>/dev/null; } 2>&1)
     echo $out
     user=$(echo $out | grep -o "user [0-9]*m[0-9.]*s" | grep -o "[0-9]*m[0-9.]*s")
-    echo "$binary, $payload, $user" >> $output
+    echo "nginx, nloop, $user" >> $output
 
     echo "time python ./BOPC/source/BOPC.py -dd --binary ./real_examples/sqlite --source ./payloads/print --abstraction save --entry -1 --format gdb"
     out=$({ time python ./BOPC/source/BOPC.py -dd --binary ./real_examples/sqlite --source ./payloads/print --abstraction save --entry -1 --format gdb 1>/dev/null; } 2>&1)
     echo $out
     user=$(echo $out | grep -o "user [0-9]*m[0-9.]*s" | grep -o "[0-9]*m[0-9.]*s")
-    echo "$binary, $payload, $user" >> $output
+    echo "sqlite, print, $user" >> $output
 
     echo "time python ./BOPC/source/BOPC.py -dd --binary ./real_examples/sqlite --source ./payloads/nloop --abstraction save --entry -1 --format gdb"
     out=$({ time python ./BOPC/source/BOPC.py -dd --binary ./real_examples/sqlite --source ./payloads/nloop --abstraction save --entry -1 --format gdb 1>/dev/null; } 2>&1)
     echo $out
     user=$(echo $out | grep -o "user [0-9]*m[0-9.]*s" | grep -o "[0-9]*m[0-9.]*s")
-    echo "$binary, $payload, $user" >> $output
+    echo "sqlite, nloop, $user" >> $output
 
 elif [ "$1" == "timeout" ]; then
     # run nginx in memwr; sqlite in memrd and memwr
-    echo "time timeout 7200 python ./BOPC/source/BOPC.py -dd --binary ./real_examples/nginx --source ./payloads/memrd --abstraction save --entry -1 --format gdb"
-    out=$({ time timeout 7200 python ./BOPC/source/BOPC.py -dd --binary ./real_examples/nginx --source ./payloads/memrd --abstraction save --entry -1 --format gdb 1>/dev/null; } 2>&1)
+    echo "time timeout 7200 python ./BOPC/source/BOPC.py -dd --binary ./real_examples/nginx --source ./payloads/memwr --abstraction save --entry -1 --format gdb"
+    out=$({ time timeout 7200 python ./BOPC/source/BOPC.py -dd --binary ./real_examples/nginx --source ./payloads/memwr --abstraction save --entry -1 --format gdb 1>/dev/null; } 2>&1)
     echo $out
     if [ $? -eq 124 ]; then
-        echo "$binary, $payload, timeout" >> $output
+        echo "nginx, memwr, timeout" >> $output
     else
         user=$(echo $out | grep -o "user [0-9]*m[0-9.]*s" | grep -o "[0-9]*m[0-9.]*s")
-        echo "$binary, $payload, $user" >> $output
+        echo "nginx, memwr, $user" >> $output
     fi
 
     echo "time timeout 7200 python ./BOPC/source/BOPC.py -dd --binary ./real_examples/sqlite --source ./payloads/memrd --abstraction save --entry -1 --format gdb"
     out=$({ time timeout 7200 python ./BOPC/source/BOPC.py -dd --binary ./real_examples/sqlite --source ./payloads/memrd --abstraction save --entry -1 --format gdb 1>/dev/null; } 2>&1)
     echo $out
     if [ $? -eq 124 ]; then
-        echo "$binary, $payload, timeout" >> $output
+        echo "sqlite, memrd, timeout" >> $output
     else
         user=$(echo $out | grep -o "user [0-9]*m[0-9.]*s" | grep -o "[0-9]*m[0-9.]*s")
-        echo "$binary, $payload, $user" >> $output
+        echo "sqlite, memrd, $user" >> $output
     fi
 
     echo "time timeout 7200 python ./BOPC/source/BOPC.py -dd --binary ./real_examples/sqlite --source ./payloads/memwr --abstraction save --entry -1 --format gdb"
     out=$({ time timeout 7200 python ./BOPC/source/BOPC.py -dd --binary ./real_examples/sqlite --source ./payloads/memwr --abstraction save --entry -1 --format gdb 1>/dev/null; } 2>&1)
     echo $out
     if [ $? -eq 124 ]; then
-        echo "$binary, $payload, timeout" >> $output
+        echo "sqlite, memwr, timeout" >> $output
     else
         user=$(echo $out | grep -o "user [0-9]*m[0-9.]*s" | grep -o "[0-9]*m[0-9.]*s")
-        echo "$binary, $payload, $user" >> $output
+        echo "sqlite, memwr, $user" >> $output
+    fi
+
+    echo "time timeout 7200 python ./BOPC/source/BOPC.py -dd --binary ./real_examples/httpd --source ./payloads/memrd --abstraction save --entry -1 --format gdb"
+    out=$({ time timeout 7200 python ./BOPC/source/BOPC.py -dd --binary ./real_examples/httpd --source ./payloads/memrd --abstraction save --entry -1 --format gdb 1>/dev/null; } 2>&1)
+    echo $out
+    if [ $? -eq 124 ]; then
+        echo "httpd, memrd, timeout" >> $output
+    else
+        user=$(echo $out | grep -o "user [0-9]*m[0-9.]*s" | grep -o "[0-9]*m[0-9.]*s")
+        echo "httpd, memrd, $user" >> $output
+    fi
+
+    echo "time timeout 7200 python ./BOPC/source/BOPC.py -dd --binary ./real_examples/httpd --source ./payloads/memwr --abstraction save --entry -1 --format gdb"
+    out=$({ time timeout 7200 python ./BOPC/source/BOPC.py -dd --binary ./real_examples/httpd --source ./payloads/memwr --abstraction save --entry -1 --format gdb 1>/dev/null; } 2>&1)
+    echo $out
+    if [ $? -eq 124 ]; then
+        echo "httpd, memwr, timeout" >> $output
+    else
+        user=$(echo $out | grep -o "user [0-9]*m[0-9.]*s" | grep -o "[0-9]*m[0-9.]*s")
+        echo "httpd, memwr, $user" >> $output
+    fi
+
+    echo "time timeout 7200 python ./BOPC/source/BOPC.py -dd --binary ./real_examples/httpd --source ./payloads/print --abstraction save --entry -1 --format gdb"
+    out=$({ time timeout 7200 python ./BOPC/source/BOPC.py -dd --binary ./real_examples/httpd --source ./payloads/print --abstraction save --entry -1 --format gdb 1>/dev/null; } 2>&1)
+    echo $out
+    if [ $? -eq 124 ]; then
+        echo "httpd, print, timeout" >> $output
+    else
+        user=$(echo $out | grep -o "user [0-9]*m[0-9.]*s" | grep -o "[0-9]*m[0-9.]*s")
+        echo "httpd, print, $user" >> $output
+    fi
+
+    echo "time timeout 7200 python ./BOPC/source/BOPC.py -dd --binary ./real_examples/httpd --source ./payloads/nloop --abstraction save --entry -1 --format gdb"
+    out=$({ time timeout 7200 python ./BOPC/source/BOPC.py -dd --binary ./real_examples/httpd --source ./payloads/nloop --abstraction save --entry -1 --format gdb 1>/dev/null; } 2>&1)
+    echo $out
+    if [ $? -eq 124 ]; then
+        echo "httpd, nloop, timeout" >> $output
+    else
+        user=$(echo $out | grep -o "user [0-9]*m[0-9.]*s" | grep -o "[0-9]*m[0-9.]*s")
+        echo "httpd, nloop, $user" >> $output
     fi
 
 fi
