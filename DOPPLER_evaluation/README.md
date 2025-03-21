@@ -31,7 +31,7 @@ The first argument of `./real_run.sh` is the name of program. Please choose one 
 * redis
 * cherry
 * pico
-* redis
+* hcode
 
 The second argument of `./real_run.sh` is the running mode. Please choose one from the following list:
 * passive
